@@ -3,6 +3,7 @@ import {
   Button,
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
@@ -41,6 +42,7 @@ const MarkCompModal = ({ isOpen, onClose, onMarkComplete, markLoading }) => {
     >
       <DrawerOverlay />
       <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
+        <DrawerCloseButton color="white" />
         <DrawerHeader borderBottomWidth="1px">Mark as Complete</DrawerHeader>
         <form onSubmit={onMarkCompleteForm}>
           <DrawerBody>

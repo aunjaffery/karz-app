@@ -19,6 +19,7 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { addNewTransaction, db } from "@src/fireConfig";
@@ -109,6 +110,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">
       <DrawerOverlay />
       <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
+        <DrawerCloseButton color="white" />
         <DrawerHeader borderBottomWidth="1px">Add Transaction</DrawerHeader>
         {clientLoading ? (
           <Flex w="100%" minH="400px" justify="center" align="center">
@@ -140,7 +142,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
                 </FormControl>
                 <FormControl color="gray.600">
                   <FormLabel>Amount</FormLabel>
-                  <Input name="amount" type="number" isRequired/>
+                  <Input name="amount" type="number" isRequired />
                 </FormControl>
               </Stack>
               <FormControl color="gray.600" mb="4">

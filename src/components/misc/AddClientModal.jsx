@@ -2,6 +2,7 @@ import {
   Button,
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
@@ -62,6 +63,7 @@ const AddClientModal = ({ isOpen, onClose }) => {
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">
       <DrawerOverlay />
       <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
+        <DrawerCloseButton color="white" />
         <DrawerHeader borderBottomWidth="1px">Add Client</DrawerHeader>
         <form onSubmit={onAddClient}>
           <DrawerBody py="6">
