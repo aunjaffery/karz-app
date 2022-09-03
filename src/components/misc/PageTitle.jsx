@@ -32,7 +32,7 @@ const PageTitle = ({ title, callback }) => {
             colorScheme="green"
             mr="1"
             size={{ base: "sm", md: "md" }}
-		  lineHeight="0"
+            lineHeight="0"
           >
             Add New
           </Button>
