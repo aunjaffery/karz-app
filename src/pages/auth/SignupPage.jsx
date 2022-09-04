@@ -88,10 +88,10 @@ const SignupPage = () => {
                   color="gray.600"
                   _focus={{
                     boxShadow: "none !important",
-                    borderColor: "gray.500",
+                    borderColor: "gray.400",
                   }}
                   _hover={{
-                    borderColor: "gray.500",
+                    borderColor: "gray.400",
                   }}
                   isRequired={true}
                 />
@@ -109,10 +109,10 @@ const SignupPage = () => {
                   color="gray.600"
                   _focus={{
                     boxShadow: "none !important",
-                    borderColor: "gray.500",
+                    borderColor: "gray.400",
                   }}
                   _hover={{
-                    borderColor: "gray.500",
+                    borderColor: "gray.400",
                   }}
                   isRequired={true}
                 />
@@ -130,10 +130,10 @@ const SignupPage = () => {
                   color="gray.600"
                   _focus={{
                     boxShadow: "none !important",
-                    borderColor: "gray.500",
+                    borderColor: "gray.400",
                   }}
                   _hover={{
-                    borderColor: "gray.500",
+                    borderColor: "gray.400",
                   }}
                   isRequired={true}
                 />
