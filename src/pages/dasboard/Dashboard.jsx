@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Container,
   Flex,
   SimpleGrid,
@@ -27,7 +26,7 @@ import {
   AiFillQuestionCircle,
 } from "react-icons/ai";
 import { BiRedo } from "react-icons/bi";
-import EmptyIcon from "@src/icons/EmptyIcon";
+import Transactions from "@src/icons/Transactions";
 import PageTitle from "@comp/misc/PageTitle";
 import DeleteClientDialog from "@comp/misc/DeleteClientDialog";
 import moment from "moment";
@@ -74,10 +73,10 @@ const Dashboard = () => {
             align="center"
             direction="column"
           >
-            <Box mb="4" color="gray.400" w="300px" h="200px">
-              <EmptyIcon />
+            <Box minW="350px" mb="6" px="6">
+              <Transactions />
             </Box>
-            <Text color="gray.500" textAlign="center">
+            <Text color="#a1adb7" textAlign="center">
               You have no transactions.
             </Text>
           </Flex>

@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Container,
   Flex,
   IconButton,
@@ -19,7 +18,7 @@ import * as style from "@dicebear/adventurer";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db, deleteClient } from "@src/fireConfig";
 import { useContext, useEffect, useState } from "react";
-import EmptyIcon from "@src/icons/EmptyIcon";
+import Search from "@src/icons/Search";
 import DeleteClientDialog from "@comp/misc/DeleteClientDialog";
 import { AuthContext } from "@src/Auth";
 
@@ -100,10 +99,10 @@ const Clients = () => {
               align="center"
               direction="column"
             >
-              <Box mb="4" color="gray.400" w="300px" h="200px">
-                <EmptyIcon />
+              <Box color="gray.400">
+                <Search />
               </Box>
-              <Text color="gray.500" textAlign="center">
+              <Text color="#a1adb7" textAlign="center">
                 You have no clients.
               </Text>
             </Flex>

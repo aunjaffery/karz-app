@@ -20,12 +20,14 @@ import {
   Alert,
   AlertIcon,
   DrawerCloseButton,
+  Text,
 } from "@chakra-ui/react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { addNewTransaction, db } from "@src/fireConfig";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@src/Auth";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const AddTransModal = ({ isOpen, onClose }) => {
   const { currentUser } = useContext(AuthContext);
@@ -122,7 +124,16 @@ const AddTransModal = ({ isOpen, onClose }) => {
               {!clients.length && (
                 <Alert status="warning" mb="6">
                   <AlertIcon mb="2px" />
-                  Please add client first.
+                  <Text>Please add client first.</Text>
+                  <Link to="/clients">
+                    <Text
+                      color="blue.400"
+                      ml="1"
+                      _hover={{ textDecoration: "underline" }}
+                    >
+                      Here
+                    </Text>
+                  </Link>
                 </Alert>
               )}
               <Stack
@@ -132,7 +143,11 @@ const AddTransModal = ({ isOpen, onClose }) => {
               >
                 <FormControl>
                   <FormLabel color="gray.600">Client</FormLabel>
-                  <Select name="client" isRequired>
+                  <Select
+                    name="client"
+                    isRequired
+                    isDisabled={!clients?.length}
+                  >
                     {clients.map((d) => (
                       <option value={d.name} key={d.id}>
                         {d.name}
@@ -142,7 +157,12 @@ const AddTransModal = ({ isOpen, onClose }) => {
                 </FormControl>
                 <FormControl color="gray.600">
                   <FormLabel>Amount</FormLabel>
-                  <Input name="amount" type="number" isRequired />
+                  <Input
+                    name="amount"
+                    type="number"
+                    isRequired
+                    isDisabled={!clients?.length}
+                  />
                 </FormControl>
               </Stack>
               <FormControl color="gray.600" mb="4">
@@ -152,6 +172,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
                   type="datetime-local"
                   defaultValue={moment().format("YYYY-MM-DDThh:mm")}
                   isRequired
+                  isDisabled={!clients?.length}
                 />
               </FormControl>
               <FormControl>
@@ -161,6 +182,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
                   ml="1"
                   sx={{ touchAction: "none" }}
                   name="status"
+                  isDisabled={!clients?.length}
                 >
                   <Stack direction="row" spacing="6">
                     <Radio value="1" sx={{ touchAction: "none" }}>
@@ -183,6 +205,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
                 type="submit"
                 w="full"
                 isLoading={transLoading}
+                isDisabled={!clients?.length}
               >
                 Confirm
               </Button>

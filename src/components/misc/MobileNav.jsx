@@ -1,25 +1,24 @@
 import {
   Box,
   Flex,
-  Avatar,
   Button,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   MenuDivider,
-  Stack,
   Center,
   Text,
   Container,
+  Image,
 } from "@chakra-ui/react";
 import { Link, NavLink } from "react-router-dom";
 import { RiExchangeFundsLine } from "react-icons/ri";
 import { AiOutlineMenu } from "react-icons/ai";
+import Ava from "@src/icons/avat.png";
 import { logout } from "@src/fireConfig";
 
 export default function MobileNav() {
-  const url = "https://avatars.dicebear.com/api/adventurer/avatar.svg";
   const onLogout = async () => {
     try {
       await logout();
@@ -70,8 +69,8 @@ export default function MobileNav() {
                   boxShadow="xl"
                   borderColor="gray.200"
                 >
-                  <Center>
-                    <Avatar size={"2xl"} background="none" src={url} />
+                  <Center h="100px">
+                      <Image src={Ava} h="auto" maxH="100%"/>
                   </Center>
                   <MenuDivider />
                   <NavLink to="/" style={{ background: "blue" }}>
