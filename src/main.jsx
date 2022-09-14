@@ -1,10 +1,11 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "@fontsource/rubik";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Auth from "./components/Auth/Auth";
 import App from "./App";
-import { AuthProvider } from "@src/Auth";
 
 const theme = extendTheme({
   fonts: {
@@ -18,15 +19,24 @@ const theme = extendTheme({
     },
   },
 });
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <ChakraProvider theme={theme}>
+  <ChakraProvider theme={theme}>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <AuthProvider>
+        <Auth>
           <App />
-        </AuthProvider>
+        </Auth>
       </BrowserRouter>
-    </ChakraProvider>
-  </React.StrictMode>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </ChakraProvider>
 );

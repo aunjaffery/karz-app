@@ -2,12 +2,11 @@ import { Box, Container, Flex, IconButton, Text } from "@chakra-ui/react";
 import { Link, NavLink } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { RiExchangeFundsLine } from "react-icons/ri";
-import { logout } from "@src/fireConfig";
 
 const Navbar = () => {
   const onLogout = async () => {
     try {
-      await logout();
+		//Logout call
       console.log("Signout Successfull");
     } catch (error) {
       console.log(error.message);

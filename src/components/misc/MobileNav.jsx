@@ -16,17 +16,17 @@ import { Link, NavLink } from "react-router-dom";
 import { RiExchangeFundsLine } from "react-icons/ri";
 import { AiOutlineMenu } from "react-icons/ai";
 import Ava from "@src/icons/avat.png";
-import { logout } from "@src/fireConfig";
+import useBoundStore from "../../store/Store";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function MobileNav() {
+  const queryClient = useQueryClient();
+
+  const { logoutService } = useBoundStore((state) => state);
   const onLogout = async () => {
-    try {
-      await logout();
-      console.log("Signout Successfull");
-    } catch (error) {
-      console.log(error.message);
-      console.log("Signout failed");
-    }
+    queryClient.clear();
+    logoutService();
+    console.log("Signout Successfull");
   };
   return (
     <>
@@ -70,7 +70,7 @@ export default function MobileNav() {
                   borderColor="gray.200"
                 >
                   <Center h="100px">
-                      <Image src={Ava} h="auto" maxH="100%"/>
+                    <Image src={Ava} h="auto" maxH="100%" />
                   </Center>
                   <MenuDivider />
                   <NavLink to="/" style={{ background: "blue" }}>

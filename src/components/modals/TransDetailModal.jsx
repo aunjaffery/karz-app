@@ -27,13 +27,8 @@ const TransDetailModal = ({
   onTransDeleteModal,
 }) => {
   const variant = useBreakpointValue(
-    {
-      base: "bottom",
-      md: "right",
-    },
-    {
-      fallback: "bottom",
-    }
+    { base: "bottom", md: "right" },
+    { fallback: "bottom" }
   );
 
   const statusString = (val) => {
@@ -41,11 +36,11 @@ const TransDetailModal = ({
       <Text
         fontSize="sm"
         bg={
-          val === 1
+          val === 1 || val === 5
             ? "red.400"
             : val === 2
             ? "green.400"
-            : val === 3
+            : val === 3 || val === 6
             ? "yellow.400"
             : val === 4
             ? "blue.400"
@@ -67,12 +62,14 @@ const TransDetailModal = ({
           ? "borrowed"
           : val === 4
           ? "repaid"
+          : val === 5 || val === 6
+          ? "partial"
           : "unknown"}
       </Text>
     );
   };
   let svg = createAvatar(style, {
-    seed: data?.client,
+    seed: data?.transactionclient?.fullName,
     dataUri: true,
     hair: [
       "short01",
@@ -103,36 +100,57 @@ const TransDetailModal = ({
                   textAlign="center"
                   textTransform="capitalize"
                 >
-                  {data?.client}
+                  {data?.transactionclient?.fullName}
                 </Text>
                 <Box textAlign="center" mt="1">
                   {statusString(data.status)}
                 </Box>
+                <Box mt="2">
+                  <Text
+                    fontSize="sm"
+                    color="blue.400"
+                    cursor="pointer"
+                    _hover={{ textDecoration: "underline" }}
+                  >
+                    View details
+                  </Text>
+                </Box>
               </Box>
-              <Box mt="4">
+              <Box mt="3">
                 <Text fontSize="3xl" textAlign="center">
                   Rs {data?.amount}
                 </Text>
                 <Text fontSize="sm" color="gray.500" textAlign="center">
-                  {data?.date
-                    ? moment(data?.date.toDate()).format("ddd, Do MMM hA")
+                  {data?.transaction_date
+                    ? moment(data?.transaction_date).format("ddd, Do MMM hA")
                     : "Unknown"}
                 </Text>
               </Box>
               <Box
                 mt="4"
                 display={
-                  data.status === 1 || data.status === 3 ? "none" : "block"
+                  data.status === 2 || data.status === 4 ? "none" : "block"
+                }
+              >
+                <Text fontSize="xl" textAlign="center">
+                  Remaining
+                </Text>
+                <Text fontSize="sm" color="gray.500" textAlign="center">
+                  Rs {data?.remaining_amount}
+                </Text>
+              </Box>
+              <Box
+                mt="4"
+                display={
+                  data.status === 2 || data.status === 4 ? "block" : "none"
                 }
               >
                 <Text fontSize="xl" textAlign="center">
                   Completed on
                 </Text>
                 <Text fontSize="sm" color="gray.500" textAlign="center">
-                  {data?.completedOn
-                    ? moment(data?.completedOn.toDate()).format(
-                        "ddd, Do MMM hA"
-                      )
+                  {data?.last_transaction
+                    ? moment(data?.last_transaction).format("ddd, Do MMM hA")
                     : "Unknown"}
                 </Text>
               </Box>

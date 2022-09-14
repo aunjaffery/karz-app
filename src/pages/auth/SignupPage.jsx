@@ -1,44 +1,24 @@
-import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
-import { signup, addNewUser } from "@src/fireConfig";
-import { useState } from "react";
+import useBoundStore from "@src/store/Store";
 import Rocket from "@src/icons/Rocket";
 
 const SignupPage = () => {
-  const toast = useToast();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { signUpService, authLoading, user } = useBoundStore((state) => state);
+  useEffect(() => {
+    if (!!user) {
+      navigate("/");
+    }
+  }, [user]);
   const onSignup = async (e) => {
     e.preventDefault();
-    setLoading(true);
     let email = e.target.email.value;
     let pass = e.target.password.value;
     let pass2 = e.target.password2.value;
-    if (pass !== pass2) {
-      toast({
-        title: "Passwords do not match",
-        status: "error",
-        position: "top",
-        duration: 1500,
-      });
-      setLoading(false);
-      return;
-    }
-    try {
-      const result = await signup(email, pass);
-      await addNewUser(result?.user?.uid, result?.user?.email);
-      setLoading(false);
-      navigate("/");
-    } catch (error) {
-      console.log(error?.message);
-      setLoading(false);
-      toast({
-        title: "Failed to Signup",
-        status: "error",
-        position: "top",
-        duration: 1500,
-      });
-    }
+    if (!email || !pass || !pass2) return;
+    signUpService(email, pass, pass2);
   };
   return (
     <Box h="100vh" bg="blue.600">
@@ -145,7 +125,7 @@ const SignupPage = () => {
                   color="white"
                   textTransform="uppercase"
                   size="lg"
-                  isLoading={loading}
+                  isLoading={authLoading}
                   _hover={{
                     bgGradient: "linear(to-r, blue.500,,blue.400, blue.300)",
                   }}

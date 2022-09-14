@@ -14,17 +14,12 @@ function DeleteClientDialog({
   isOpen,
   onClose,
   triggerFunction,
-  name,
+  fullName,
   loading,
 }) {
   const variant = useBreakpointValue(
-    {
-      base: "bottom",
-      md: "right",
-    },
-    {
-      fallback: "bottom",
-    }
+    { base: "bottom", md: "right" },
+    { fallback: "bottom" }
   );
 
   return (
@@ -38,7 +33,7 @@ function DeleteClientDialog({
       <DrawerOverlay />
       <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
         <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
-          Delete {name}
+          Delete {fullName}
         </DrawerHeader>
         <DrawerBody py="6">
           <Text color="gray.600" fontSize={{ base: "md", md: "lg" }}>

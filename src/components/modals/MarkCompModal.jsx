@@ -15,7 +15,13 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 
-const MarkCompModal = ({ isOpen, onClose, onMarkComplete, markLoading }) => {
+const MarkCompModal = ({
+  isOpen,
+  onClose,
+  onMarkTransaction,
+  markLoading,
+  data,
+}) => {
   const variant = useBreakpointValue(
     {
       base: "bottom",
@@ -28,9 +34,10 @@ const MarkCompModal = ({ isOpen, onClose, onMarkComplete, markLoading }) => {
 
   const onMarkCompleteForm = (e) => {
     e.preventDefault();
-    let date = e.target.date.value;
-    if (!date) return;
-    onMarkComplete(date);
+    let paymentDate = e.target.paymentDate.value;
+    let amount = e.target.amount.value;
+    if ((!paymentDate, !amount)) return;
+    onMarkTransaction(amount, paymentDate);
   };
   return (
     <Drawer
@@ -47,13 +54,25 @@ const MarkCompModal = ({ isOpen, onClose, onMarkComplete, markLoading }) => {
         <form onSubmit={onMarkCompleteForm}>
           <DrawerBody>
             <Box pt="6">
-              <FormControl color="gray.600">
-                <FormLabel>Completed on</FormLabel>
+              <FormControl color="gray.600" mb="4">
+                <FormLabel>Amount</FormLabel>
                 <Input
-                  name="date"
+                  name="amount"
+                  type="number"
+                  max={data?.remaining_amount}
+                  defaultValue={data?.remaining_amount}
+                  isRequired
+                />
+              </FormControl>
+              <FormControl color="gray.600">
+                <FormLabel>Payment Date</FormLabel>
+                <Input
+                  name="paymentDate"
                   type="datetime-local"
                   isRequired
                   defaultValue={moment().format("YYYY-MM-DDThh:mm")}
+                  max={moment().format("YYYY-MM-DDThh:mm")}
+                  min={moment(data?.transaction_date).format("YYYY-MM-DDThh:mm")}
                   borderColor="gray.400"
                 />
               </FormControl>

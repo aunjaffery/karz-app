@@ -12,53 +12,35 @@ import {
   Input,
   Select,
   useBreakpointValue,
-  useToast,
 } from "@chakra-ui/react";
-import { addNewClient } from "@src/fireConfig";
-import { useContext, useState } from "react";
-import { AuthContext } from "@src/Auth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addNewClient } from "../../services/Apis";
+import { toast } from "react-toastify";
 
 const AddClientModal = ({ isOpen, onClose }) => {
-  const toast = useToast();
-  const { currentUser } = useContext(AuthContext);
-  const [addLoading, setAddLoading] = useState(false);
-  const variant = useBreakpointValue(
-    {
-      base: "bottom",
-      md: "right",
+  const queryClient = useQueryClient();
+  const { mutate, isLoading } = useMutation(addNewClient, {
+    onSuccess: () => {
+      toast.success("Client added successfully");
+      onClose();
+      queryClient.invalidateQueries(["fetchUserClients"]);
     },
-    {
-      fallback: "bottom",
-    }
-  );
+    onError: () => toast.error("Error! Cannot create client"),
+  });
   const onAddClient = async (e) => {
     e.preventDefault();
-    let name = e.target.name?.value;
+    let fullName = e.target.fullName?.value;
     let relation = e.target.relation?.value;
-    if (!name || !relation) return;
-    name = name?.toLowerCase();
-    setAddLoading(true);
-    try {
-      await addNewClient(name, relation, currentUser?.uid);
-      setAddLoading(false);
-      onClose();
-      toast({
-        title: "Client Added successfully",
-        status: "success",
-        position: "top",
-        duration: 1500,
-      });
-    } catch (error) {
-      console.log(error);
-      setAddLoading(false);
-      toast({
-        title: "Failed to add client",
-        status: "error",
-        position: "top",
-        duration: 1500,
-      });
-    }
+    if (!fullName || !relation) return;
+    fullName = fullName?.toLowerCase();
+    mutate({ fullName, relation });
   };
+
+  const variant = useBreakpointValue(
+    { base: "bottom", md: "right" },
+    { fallback: "bottom" }
+  );
+
   return (
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">
       <DrawerOverlay />
@@ -69,7 +51,7 @@ const AddClientModal = ({ isOpen, onClose }) => {
           <DrawerBody py="6">
             <FormControl color="gray.600">
               <FormLabel>Name</FormLabel>
-              <Input name="name" type="text" maxLength={15} isRequired />
+              <Input name="fullName" type="text" maxLength={15} isRequired />
             </FormControl>
             <FormControl mt="4">
               <FormLabel color="gray.600">Relation</FormLabel>
@@ -90,7 +72,7 @@ const AddClientModal = ({ isOpen, onClose }) => {
               colorScheme="green"
               type="submit"
               w="full"
-              isLoading={addLoading}
+              isLoading={isLoading}
             >
               Confirm
             </Button>

@@ -1,33 +1,25 @@
-import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "@src/fireConfig";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "@src/Auth";
+import useBoundStore from "@src/store/Store";
 import Rocket from "@src/icons/Rocket";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const toast = useToast();
-  const { currentUser } = useContext(AuthContext);
+  const { loginService, authLoading, user } = useBoundStore((state) => state);
+
   useEffect(() => {
-    if (currentUser) navigate("/");
-  }, [currentUser]);
+    if (!!user) {
+      navigate("/");
+    }
+  }, [user]);
+
   const onLoginSubmit = async (e) => {
     e.preventDefault();
     let email = e.target.email.value;
     let pass = e.target.password.value;
-    try {
-      await login(email, pass);
-      navigate("/");
-    } catch (error) {
-      console.log(error?.message);
-      toast({
-        title: "Invalid email/password",
-        status: "error",
-        position: "top",
-        duration: 1500,
-      });
-    }
+    if (!email || !pass) return;
+    loginService(email, pass);
   };
   return (
     <Box h="100vh" bg="blue.600">
@@ -119,6 +111,7 @@ const LoginPage = () => {
                     bgGradient: "linear(to-r, blue.500,,blue.300, blue.500)",
                   }}
                   type="submit"
+                  isLoading={authLoading}
                 >
                   Login
                 </Button>

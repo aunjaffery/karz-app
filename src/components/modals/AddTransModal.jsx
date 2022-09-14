@@ -14,7 +14,6 @@ import {
   Select,
   Stack,
   useBreakpointValue,
-  useToast,
   Flex,
   Spinner,
   Alert,
@@ -22,90 +21,56 @@ import {
   DrawerCloseButton,
   Text,
 } from "@chakra-ui/react";
-import { collection, getDocs, query } from "firebase/firestore";
-import { addNewTransaction, db } from "@src/fireConfig";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@src/Auth";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { addNewTransaction, fetchUserClients } from "../../services/Apis";
+import { toast } from "react-toastify";
 
 const AddTransModal = ({ isOpen, onClose }) => {
-  const { currentUser } = useContext(AuthContext);
-  const [clients, setClients] = useState([]);
-  const [transLoading, setTransLoading] = useState(false);
-  const [clientLoading, setClientLoading] = useState(true);
-  const toast = useToast();
-
-  const variant = useBreakpointValue(
+  const queryClient = useQueryClient();
+  const { data: clients, isLoading: clientLoading } = useQuery(
+    ["fetchUserClients"],
+    fetchUserClients,
     {
-      base: "bottom",
-      md: "right",
-    },
+      refetchOnWindowFocus: false,
+    }
+  );
+  const { mutate: addTransaction, isLoading: transLoading } = useMutation(
+    addNewTransaction,
     {
-      fallback: "bottom",
+      onSuccess: () => {
+        toast.success("Transaction added successfully");
+        onClose();
+        queryClient.invalidateQueries(["fetchTransactions"]);
+      },
+      onError: () => toast.error("Error! Cannot create transaction"),
     }
   );
 
-  const q = query(collection(db, "users", currentUser?.uid, "clients"));
-  const clientCall = async () => {
-    try {
-      const querySnapshot = await getDocs(q);
-      const arr = [];
-      querySnapshot.forEach((doc) => {
-        arr.push({
-          id: doc.id,
-          name: doc.data()?.name,
-        });
-      });
-      setClients(arr);
-      setClientLoading(false);
-    } catch (error) {
-      console.log(error);
-      setClientLoading(false);
-    }
-  };
-  useEffect(() => {
-    clientCall();
-  }, []);
+  const variant = useBreakpointValue(
+    { base: "bottom", md: "right" },
+    { fallback: "bottom" }
+  );
 
   const onSubmitTransaction = async (e) => {
     e.preventDefault();
     let data = {
-      client: "",
+      client_id: "",
       amount: "",
-      date: "",
+      transaction_date: "",
       status: "",
     };
     for (let key of Object.keys(data)) {
       if (!e.target[key]?.value) return;
 
-      if (key === "amount" || key === "status") {
+      if (key === "amount" || key === "status" || key === "client_id") {
         data[key] = parseInt(e.target[key].value);
       } else {
         data[key] = e.target[key].value;
       }
     }
-    setTransLoading(true);
-    try {
-      await addNewTransaction(data, currentUser?.uid);
-      setTransLoading(false);
-      onClose();
-      toast({
-        title: "Transaction Added successfully",
-        status: "success",
-        position: "top",
-        duration: 1500,
-      });
-    } catch (error) {
-      console.log(error);
-      setTransLoading(false);
-      toast({
-        title: "Failed to add transaction",
-        status: "error",
-        position: "top",
-        duration: 1500,
-      });
-    }
+    addTransaction(data);
   };
 
   return (
@@ -121,7 +86,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
         ) : (
           <form onSubmit={onSubmitTransaction}>
             <DrawerBody pt="6" pb="2">
-              {!clients.length && (
+              {!clients?.result.length && (
                 <Alert status="warning" mb="6">
                   <AlertIcon mb="2px" />
                   <Text>Please add client first.</Text>
@@ -144,13 +109,13 @@ const AddTransModal = ({ isOpen, onClose }) => {
                 <FormControl>
                   <FormLabel color="gray.600">Client</FormLabel>
                   <Select
-                    name="client"
+                    name="client_id"
                     isRequired
-                    isDisabled={!clients?.length}
+                    isDisabled={!clients?.result?.length}
                   >
-                    {clients.map((d) => (
-                      <option value={d.name} key={d.id}>
-                        {d.name}
+                    {clients?.result.map((d) => (
+                      <option value={d.id} key={d.id}>
+                        {d.fullName}
                       </option>
                     ))}
                   </Select>
@@ -160,19 +125,21 @@ const AddTransModal = ({ isOpen, onClose }) => {
                   <Input
                     name="amount"
                     type="number"
+                    max="9999999"
                     isRequired
-                    isDisabled={!clients?.length}
+                    isDisabled={!clients?.result?.length}
                   />
                 </FormControl>
               </Stack>
               <FormControl color="gray.600" mb="4">
                 <FormLabel>Date</FormLabel>
                 <Input
-                  name="date"
+                  name="transaction_date"
                   type="datetime-local"
                   defaultValue={moment().format("YYYY-MM-DDThh:mm")}
+                  max={moment().format("YYYY-MM-DDThh:mm")}
                   isRequired
-                  isDisabled={!clients?.length}
+                  isDisabled={!clients?.result?.length}
                 />
               </FormControl>
               <FormControl>
@@ -182,7 +149,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
                   ml="1"
                   sx={{ touchAction: "none" }}
                   name="status"
-                  isDisabled={!clients?.length}
+                  isDisabled={!clients?.result?.length}
                 >
                   <Stack direction="row" spacing="6">
                     <Radio value="1" sx={{ touchAction: "none" }}>
@@ -205,7 +172,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
                 type="submit"
                 w="full"
                 isLoading={transLoading}
-                isDisabled={!clients?.length}
+                isDisabled={!clients?.result?.length}
               >
                 Confirm
               </Button>
