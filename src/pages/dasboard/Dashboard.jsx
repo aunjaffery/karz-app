@@ -65,9 +65,6 @@ const Dashboard = () => {
                 <TransactionCard data={d} key={d.id} />
               ))}
             </SimpleGrid>
-            <Button variant="success" mt="6" onClick={onAddTransOpen}>
-              Custom
-            </Button>
           </Box>
         )}
       </Container>

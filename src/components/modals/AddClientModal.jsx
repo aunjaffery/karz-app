@@ -28,6 +28,10 @@ const AddClientModal = ({ isOpen, onClose }) => {
     },
     onError: () => toast.error("Error! Cannot create client"),
   });
+  const variant = useBreakpointValue(
+    { base: "bottom", md: "right" },
+    { fallback: "bottom" }
+  );
   const onAddClient = async (e) => {
     e.preventDefault();
     let fullName = e.target.fullName?.value;
@@ -36,11 +40,6 @@ const AddClientModal = ({ isOpen, onClose }) => {
     fullName = fullName?.toLowerCase();
     mutate({ fullName, relation });
   };
-
-  const variant = useBreakpointValue(
-    { base: "bottom", md: "right" },
-    { fallback: "bottom" }
-  );
 
   return (
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">

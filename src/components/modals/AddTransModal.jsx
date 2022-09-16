@@ -53,6 +53,9 @@ const AddTransModal = ({ isOpen, onClose }) => {
     { base: "bottom", md: "right" },
     { fallback: "bottom" }
   );
+  const tborder = useColorModeValue("1px", "none");
+  const tcolor = useColorModeValue("black", "white");
+  const tbg = useColorModeValue("white", "dark.100");
 
   const onSubmitTransaction = async (e) => {
     e.preventDefault();
@@ -116,9 +119,9 @@ const AddTransModal = ({ isOpen, onClose }) => {
                     name="client_id"
                     isRequired
                     isDisabled={!clients?.result?.length}
-                    border={useColorModeValue("1px", "none")}
-                    color={useColorModeValue("black", "white")}
-                    bg={useColorModeValue("white", "dark.100")}
+                    border={tborder}
+                    color={tcolor}
+                    bg={tbg}
                   >
                     {clients?.result.map((d) => (
                       <option value={d.id} key={d.id}>
@@ -133,9 +136,9 @@ const AddTransModal = ({ isOpen, onClose }) => {
                     name="amount"
                     type="number"
                     max="9999999"
-                    border={useColorModeValue("1px", "none")}
-                    color={useColorModeValue("black", "white")}
-                    bg={useColorModeValue("white", "dark.100")}
+                    border={tborder}
+                    color={tcolor}
+                    bg={tbg}
                     isRequired
                     isDisabled={!clients?.result?.length}
                   />
@@ -148,9 +151,9 @@ const AddTransModal = ({ isOpen, onClose }) => {
                   type="datetime-local"
                   defaultValue={moment().format("YYYY-MM-DDThh:mm")}
                   max={moment().format("YYYY-MM-DDThh:mm")}
-                  border={useColorModeValue("1px", "none")}
-                  color={useColorModeValue("black", "white")}
-                  bg={useColorModeValue("white", "dark.100")}
+                  border={tborder}
+                  color={tcolor}
+                  bg={tbg}
                   isRequired
                   isDisabled={!clients?.result?.length}
                 />
