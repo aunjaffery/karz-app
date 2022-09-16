@@ -17,6 +17,11 @@ const theme = extendTheme({
       100: "#f5f5f7",
       200: "#0f1319",
     },
+    dark: {
+      100: "#161c2c", //bg
+      200: "#252a41", //fg
+      300: "#3f69ff", //blue btn
+    },
   },
 });
 // Create a client

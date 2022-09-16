@@ -25,6 +25,14 @@ export const fetchTransactions = async () => {
   const rsp = await axios(`${Domain}/api/user/getTransactions`);
   return rsp.data;
 };
+export const getTransactionDetails = async ({ queryKey }) => {
+  const [_, trans_id] = queryKey;
+  console.log("<== api", trans_id);
+  const rsp = await axios.get(`${Domain}/api/user/getTransactionDetails`, {
+    params: { trans_id },
+  });
+  return rsp.data;
+};
 
 export const deleteTransaction = async (id) => {
   const rsp = await axios.delete(`${Domain}/api/user/deleteTransaction/${id}`);

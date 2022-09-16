@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Box, Container, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import AddTransModal from "@comp/modals/AddTransModal";
 import PageTitle from "@comp/misc/PageTitle";
+import BreadCrumbs from "@comp/misc/BreadCrumbs";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTransactions } from "../../services/Apis";
 import TransactionCard from "@comp/cards/TransactionCard";
@@ -33,11 +34,14 @@ const Dashboard = () => {
   return (
     <Box>
       <Container maxW="container.xl" h="100%">
-        <PageTitle
-          title="Transactions"
-          callback={onAddTransOpen}
-          isFetching={isFetching && !transLoading}
-        />
+	  <BreadCrumbs />
+        {/*
+		  <PageTitle
+		  title="Transactions"
+		  callback={onAddTransOpen}
+		  isFetching={isFetching && !transLoading}
+		  />
+		  */}
         {transLoading ? (
           <Box pb="12">
             <SimpleGrid columns={[1, 1, 2, 3]} spacing="6">

@@ -5,16 +5,17 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import AddClientModal from "@comp/modals/AddClientModal";
-import PageTitle from "@comp/misc/PageTitle";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import DeleteClientDialog from "@comp/modals/DeleteClientDialog";
-import ClientCard from "@comp/cards/ClientCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import AddClientModal from "@comp/modals/AddClientModal";
+import DeleteClientDialog from "@comp/modals/DeleteClientDialog";
+import PageTitle from "@comp/misc/PageTitle";
+import BreadCrumbs from "@comp/misc/BreadCrumbs";
+import ClientCard from "@comp/cards/ClientCard";
 import NoClients from "@comp/placeholders/NoClients";
 import SkeletonClient from "@comp/placeholders/SkeletonClient";
 import { fetchUserClients, deleteClient } from "../../services/Apis";
-import { toast } from "react-toastify";
 
 const Clients = () => {
   const [delId, setDelId] = useState(null);
@@ -65,11 +66,14 @@ const Clients = () => {
   return (
     <Box>
       <Container maxW="container.xl" h="100%">
-        <PageTitle
-          title="Clients"
-          callback={onAddClientOpen}
-          isFetching={isFetching && !isLoading}
-        />
+        {/*
+		  <PageTitle
+		  title="Clients"
+		  callback={onAddClientOpen}
+		  isFetching={isFetching && !isLoading}
+		  />
+		  */}
+        <BreadCrumbs paths={[{ id: 1, name: "Clients", path: "/clients" }]} />
         <Box>
           {isLoading ? (
             <Box pb="12">

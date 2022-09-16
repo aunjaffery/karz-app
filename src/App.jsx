@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "@comp/misc/Layout";
 import LoginPage from "@pages/auth/LoginPage";
 import Dashboard from "@pages/dasboard/Dashboard";
+import TransDetail from "@pages/transactions/TransDetail";
 import SignupPage from "@pages/auth/SignupPage";
 import Clients from "@pages/client/Clients";
 import Test from "@pages/client/Test";
@@ -18,12 +19,12 @@ function App() {
   const authCheck = useBoundStore((state) => {
     return state.user ? state.user : false;
   });
-  useEffect(() => {
-    // useEffect only if you want whole App private.
-    if (authCheck === false) navigate("login");
-    //remove this useEffect if You want some public pages in App.
-    //Route can handle private pages individually through ProtectedRoute
-  }, [authCheck]);
+//  useEffect(() => {
+//    // useEffect only if you want whole App private.
+//    if (authCheck === false) navigate("login");
+//    //remove this useEffect if You want some public pages in App.
+//    //Route can handle private pages individually through ProtectedRoute
+//  }, [authCheck]);
 
   return (
     <Box bg="bg.100">
@@ -47,14 +48,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/transaction"
-            element={
-              <ProtectedRoute isAllowed={!!authCheck}>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/transaction/:trans_id" element={<TransDetail />} />
           {/*404*/}
           <Route path="*" element={<Test />} />
         </Routes>

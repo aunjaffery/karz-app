@@ -1,0 +1,19 @@
+
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { getTransactionDetails } from "../../services/Apis";
+
+
+
+  let { trans_id } = useParams();
+  const { data: transaction, isLoading: transLoading } = useQuery(
+    ["getTransactionDetails", trans_id],
+    getTransactionDetails,
+    {
+      refetchOnWindowFocus: false,
+      onError: () => toast.error("Error! Cannot fetch transaction"),
+      enabled: !!trans_id,
+    }
+  );
+  console.log(transLoading, transaction);

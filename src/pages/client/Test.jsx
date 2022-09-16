@@ -1,8 +1,10 @@
 import { Box, Container, Text } from "@chakra-ui/react";
+import BreadCrumbs from "@comp/misc/BreadCrumbs";
 
 const Test = () => {
   return (
     <Container maxW="container.xl" h="100%">
+      <BreadCrumbs paths={[{ id: 1, name: "Test", path: "/test" }]} />
       <Box py="6" mt="8">
         {Array.from(Array(10).keys()).map((x) => (
           <Box key={x} p="6" bg="gray.200" mb="6" borderRadius="lg">

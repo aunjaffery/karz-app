@@ -18,6 +18,7 @@ import {
 import moment from "moment";
 import { createAvatar } from "@dicebear/avatars";
 import * as style from "@dicebear/adventurer";
+import { Link } from "react-router-dom";
 
 const TransDetailModal = ({
   isOpen,
@@ -106,14 +107,16 @@ const TransDetailModal = ({
                   {statusString(data.status)}
                 </Box>
                 <Box mt="2">
-                  <Text
-                    fontSize="sm"
-                    color="blue.400"
-                    cursor="pointer"
-                    _hover={{ textDecoration: "underline" }}
-                  >
-                    View details
-                  </Text>
+                  <Link to={`/transaction/${data?.id}`}>
+                    <Text
+                      fontSize="sm"
+                      color="blue.400"
+                      cursor="pointer"
+                      _hover={{ textDecoration: "underline" }}
+                    >
+                      View details
+                    </Text>
+                  </Link>
                 </Box>
               </Box>
               <Box mt="3">
