@@ -11,8 +11,9 @@ import {
   Text,
   Container,
   Image,
+  useColorMode,
 } from "@chakra-ui/react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { RiExchangeFundsLine } from "react-icons/ri";
 import { AiOutlineMenu } from "react-icons/ai";
 import Ava from "@src/icons/avat.png";
@@ -21,6 +22,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function MobileNav() {
   const queryClient = useQueryClient();
+  const { toggleColorMode } = useColorMode();
 
   const { logoutService } = useBoundStore((state) => state);
   const onLogout = async () => {
@@ -30,26 +32,24 @@ export default function MobileNav() {
   };
   return (
     <>
-      <Box bg={"gray.800"}>
+      <Box>
         <Container maxW="container.xl" h="100%">
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-            <Link to="/">
-              <Flex
-                justify="flex-start"
-                align="center"
-                _hover={{ color: "blue.300" }}
-                color="blue.400"
-                gridColumnGap="1"
-              >
-                <Box>
-                  <RiExchangeFundsLine size="26px" />
-                </Box>
-                <Text fontWeight="bold" fontSize={{ base: "2xl", md: "3xl" }}>
-                  Finance
-                </Text>
-              </Flex>
-            </Link>
-
+            <Flex
+              justify="flex-start"
+              align="center"
+              _hover={{ color: "blue.300" }}
+              color="blue.400"
+              gridColumnGap="1"
+              onClick={toggleColorMode}
+            >
+              <Box>
+                <RiExchangeFundsLine size="26px" />
+              </Box>
+              <Text fontWeight="bold" fontSize={{ base: "2xl", md: "3xl" }}>
+                Finance
+              </Text>
+            </Flex>
             <Flex alignItems={"center"}>
               <Menu>
                 <MenuButton
@@ -96,6 +96,14 @@ export default function MobileNav() {
                       </MenuItem>
                     )}
                   </NavLink>
+                  <MenuItem
+                    color={"blue.700"}
+                    _hover={{ color: "blue.600", bg: "blue.100" }}
+                    _focus={{ backgroundColor: "none" }}
+                    onClick={toggleColorMode}
+                  >
+                    Dark
+                  </MenuItem>
                   <MenuItem
                     color="gray.700"
                     _hover={{ color: "red.600", bg: "red.100" }}

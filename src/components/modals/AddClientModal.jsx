@@ -12,6 +12,7 @@ import {
   Input,
   Select,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addNewClient } from "../../services/Apis";
@@ -44,18 +45,35 @@ const AddClientModal = ({ isOpen, onClose }) => {
   return (
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">
       <DrawerOverlay />
-      <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
-        <DrawerCloseButton color="white" />
+      <DrawerContent
+        borderTopRadius={{ base: "30px", md: "none" }}
+        bg={useColorModeValue("white", "dark.200")}
+      >
+        <DrawerCloseButton color={useColorModeValue("white", "dark.200")} />
         <DrawerHeader borderBottomWidth="1px">Add Client</DrawerHeader>
         <form onSubmit={onAddClient}>
           <DrawerBody py="6">
-            <FormControl color="gray.600">
+            <FormControl color="gray.500">
               <FormLabel>Name</FormLabel>
-              <Input name="fullName" type="text" maxLength={15} isRequired />
+              <Input
+                name="fullName"
+                type="text"
+                maxLength={15}
+                border={useColorModeValue("1px", "none")}
+                color={useColorModeValue("black", "white")}
+                bg={useColorModeValue("white", "dark.100")}
+                isRequired
+              />
             </FormControl>
             <FormControl mt="4">
-              <FormLabel color="gray.600">Relation</FormLabel>
-              <Select name="relation" isRequired>
+              <FormLabel color="gray.500">Relation</FormLabel>
+              <Select
+                name="relation"
+                border={useColorModeValue("1px", "none")}
+                color={useColorModeValue("black", "white")}
+                bg={useColorModeValue("white", "dark.100")}
+                isRequired
+              >
                 <option value="relative">Relative</option>
                 <option value="friend">Friend</option>
                 <option value="colleague">Colleague</option>
@@ -69,14 +87,14 @@ const AddClientModal = ({ isOpen, onClose }) => {
             gridGap="3"
           >
             <Button
-              colorScheme="green"
+              variant="success"
               type="submit"
               w="full"
               isLoading={isLoading}
             >
               Confirm
             </Button>
-            <Button colorScheme="twitter" mr={3} onClick={onClose} w="full">
+            <Button variant="danger" mr={3} onClick={onClose} w="full">
               Close
             </Button>
           </DrawerFooter>

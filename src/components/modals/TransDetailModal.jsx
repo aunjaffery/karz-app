@@ -9,6 +9,7 @@ import {
   Flex,
   Text,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   AiOutlineCheck,
@@ -89,7 +90,10 @@ const TransDetailModal = ({
   return (
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">
       <DrawerOverlay />
-      <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
+      <DrawerContent
+        borderTopRadius={{ base: "30px", md: "none" }}
+        bg={useColorModeValue("white", "dark.200")}
+      >
         <DrawerBody align="center">
           <Box py="6">
             <Flex direction="column" align="center" justify="center">
@@ -160,7 +164,7 @@ const TransDetailModal = ({
             </Flex>
             <Flex gridColumnGap="6" justifyContent="center" mt="6">
               <Button
-                colorScheme="green"
+                variant="grass"
                 type="submit"
                 borderRadius="full"
                 py="6"
@@ -171,7 +175,7 @@ const TransDetailModal = ({
                 <AiOutlineCheck />
               </Button>
               <Button
-                colorScheme="red"
+                variant="danger"
                 borderRadius="full"
                 py="6"
                 px="4"

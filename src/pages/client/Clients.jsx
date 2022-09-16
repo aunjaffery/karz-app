@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   SimpleGrid,
   Text,
@@ -112,6 +113,9 @@ const Clients = () => {
                   />
                 ))}
               </SimpleGrid>
+              <Button variant="success" mt="6" onClick={onAddClientOpen}>
+                Custom
+              </Button>
               <Box mt="12" px="8">
                 <Text color="gray.500" textAlign="center" fontSize="sm">
                   Please do not add more then 20 clients. I cannot afford to pay

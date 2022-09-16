@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import MobileNav from "./MobileNav";
 
@@ -10,7 +10,11 @@ const Layout = ({ children }) => {
       : false;
   };
   return (
-    <Box minH="100vh" position="relative">
+    <Box
+      minH="100vh"
+      position="relative"
+      bg={useColorModeValue("bg.100", "dark.100")}
+    >
       {render() ? null : <MobileNav />}
       {children}
     </Box>

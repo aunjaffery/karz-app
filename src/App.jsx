@@ -27,7 +27,7 @@ function App() {
 //  }, [authCheck]);
 
   return (
-    <Box bg="bg.100">
+    <Box>
       <Layout>
         <Routes>
           <Route path="login" element={<LoginPage />} />

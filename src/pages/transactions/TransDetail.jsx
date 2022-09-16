@@ -1,4 +1,11 @@
-import { Box, Container, Flex, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Spinner,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import BreadCrumbs from "@comp/misc/BreadCrumbs";
 
 const TransDetail = () => {
@@ -6,8 +13,7 @@ const TransDetail = () => {
     <Box
       minH="calc(100vh - 4rem)"
       sx={{
-        backgroundImage: "linear-gradient(to right, #b993d6, #8ca6db)",
-        //backgroundImage: "linear-gradient( 135deg, #97ABFF 10%, #123597 100%);",
+        //background: "linear-gradient(to right, #b993d6, #8ca6db)",
       }}
     >
       <Container maxW="container.xl" h="100%">
@@ -15,10 +21,10 @@ const TransDetail = () => {
           paths={[
             { id: 1, name: "transaction", path: "/transaction", dis: true },
           ]}
-          color="white"
-          hcolor="white"
+          //color="white"
+          //hcolor="white"
         />
-        <Box mb="10" mt="2" color="white" ml="2px">
+        <Box mb="10" mt="2" ml="2px">
           <Text fontWeight="bold" fontSize="3xl">
             Transaction
           </Text>
@@ -29,7 +35,7 @@ const TransDetail = () => {
           pb="6"
           px="4"
           borderTopRadius="30px"
-          bg="white"
+          bg={useColorModeValue("white", "dark.200")}
           h="100%"
           borderBottomRadius={{ base: "none", sm: "30px" }}
         >
@@ -47,6 +53,13 @@ const TransDetail = () => {
                 of type and scrambled it to make a type specimen book. It has
                 survived not only five centuries, but also the leap into
                 electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum. It was popularised in the 1960s with the release of
+                Letraset sheets containing Lorem Ipsum passages, and more
+                recently with desktop publishing software like Aldus PageMaker
+                including versions of Lorem Ipsum. It was
                 popularised in the 1960s with the release of Letraset sheets
                 containing Lorem Ipsum passages, and more recently with desktop
                 publishing software like Aldus PageMaker including versions of

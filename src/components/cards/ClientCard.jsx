@@ -1,4 +1,11 @@
-import { Avatar, Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Flex,
+  IconButton,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { AiFillDelete } from "react-icons/ai";
 import { createAvatar } from "@dicebear/avatars";
 import * as style from "@dicebear/adventurer";
@@ -25,7 +32,7 @@ const ClientCard = ({ fullName, sub, delWarning }) => {
   return (
     <Flex position="relative" ml="45px">
       <Flex
-        bg="green.100"
+        bg={useColorModeValue("green.100", "dark.200")}
         h="90px"
         minW={{ base: "100%", sm: "200px" }}
         borderRadius="md"
@@ -36,7 +43,7 @@ const ClientCard = ({ fullName, sub, delWarning }) => {
         <Box
           h="90px"
           w="90px"
-          bg="white"
+          bg={useColorModeValue("white", "dark.200")}
           borderRadius="full"
           position="absolute"
           top="0"
@@ -56,41 +63,38 @@ const ClientCard = ({ fullName, sub, delWarning }) => {
           minW={{ base: 0, sm: "195px" }}
         >
           <Box ml="4">
-            <Text
-              fontSize="lg"
-              textTransform="capitalize"
-              color="gray.700"
-              whiteSpace="nowrap"
-            >
+            <Text fontSize="lg" textTransform="capitalize" whiteSpace="nowrap">
               {fullName}
             </Text>
             <Text
               fontSize="xs"
               textTransform="capitalize"
-              color="gray.600"
+              color={useColorModeValue("gray.600", "gray.400")}
               whiteSpace="nowrap"
             >
               {sub}
             </Text>
           </Box>
         </Flex>
-        <Flex bg="#fafafa" px="4" justify="center" align="center">
-          <IconButton
-            size="sm"
-            bg="none"
-            aria-label="back-btn"
-            borderRadius="lg"
-            _hover={{
-              bg: "none",
-              color: "red.400",
-            }}
-            _active={{
-              bg: "red.100",
-            }}
-            onClick={delWarning}
-            icon={<AiFillDelete size="20" />}
-          />
-        </Flex>
+        <Box bg={useColorModeValue("#fafafa", "dark.200")} py="4" pr="4">
+          <Flex borderLeftWidth={useColorModeValue("none", "2px")} h="full" justify="center" align="center" pl="2">
+            <IconButton
+              size="sm"
+              bg="none"
+              aria-label="back-btn"
+              borderRadius="lg"
+              _hover={{
+                bg: "none",
+                color: "red.400",
+              }}
+              _active={{
+                bg: "red.100",
+              }}
+              onClick={delWarning}
+              icon={<AiFillDelete size="20" />}
+            />
+          </Flex>
+        </Box>
       </Flex>
     </Flex>
   );

@@ -8,6 +8,7 @@ import {
   DrawerOverlay,
   Text,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 function DeleteClientDialog({
@@ -31,12 +32,15 @@ function DeleteClientDialog({
       blockScrollOnMount={false}
     >
       <DrawerOverlay />
-      <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
+      <DrawerContent
+        borderTopRadius={{ base: "30px", md: "none" }}
+        bg={useColorModeValue("white", "dark.200")}
+      >
         <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
           Delete {fullName}
         </DrawerHeader>
         <DrawerBody py="6">
-          <Text color="gray.600" fontSize={{ base: "md", md: "lg" }}>
+          <Text  fontSize={{ base: "md", md: "lg" }}>
             Are you sure? You can't undo this action afterwards.
           </Text>
         </DrawerBody>
@@ -46,14 +50,14 @@ function DeleteClientDialog({
           gridGap="3"
         >
           <Button
-            colorScheme="red"
+            variant="danger"
             w="full"
             onClick={triggerFunction}
             isLoading={loading}
           >
             Delete
           </Button>
-          <Button colorScheme="twitter" mr={3} onClick={onClose} w="full">
+          <Button variant="success" mr={3} onClick={onClose} w="full">
             Cancel
           </Button>
         </DrawerFooter>

@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Text, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import TransDetailModal from "@comp/modals/TransDetailModal";
 import MarkCompModal from "@comp/modals/MarkCompModal";
 import DeleteClientDialog from "@comp/modals/DeleteClientDialog";
@@ -100,7 +100,7 @@ const TransactionCard = ({ data }) => {
   return (
     <Box
       maxW="360px"
-      bg="white"
+      bg={useColorModeValue("white", "dark.200")}
       p="1"
       borderRadius="lg"
       boxShadow="md"
@@ -112,7 +112,7 @@ const TransactionCard = ({ data }) => {
         <Box>
           <Flex
             color={colorSelector("fg", status)}
-            bg={colorSelector("bg", status)}
+            bg={useColorModeValue(colorSelector("bg", status),"none")}
             p="3"
             borderRadius="lg"
           >
@@ -169,7 +169,7 @@ const TransactionCard = ({ data }) => {
         onClose={onDelTransClose}
         triggerFunction={onTransDelete}
         loading={delLoading}
-        name="Transaction"
+        fullName="Transaction"
       />
     </Box>
   );

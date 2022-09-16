@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Box, Container, SimpleGrid, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  SimpleGrid,
+  useDisclosure,
+} from "@chakra-ui/react";
 import AddTransModal from "@comp/modals/AddTransModal";
 import PageTitle from "@comp/misc/PageTitle";
 import BreadCrumbs from "@comp/misc/BreadCrumbs";
@@ -34,7 +40,7 @@ const Dashboard = () => {
   return (
     <Box>
       <Container maxW="container.xl" h="100%">
-	  <BreadCrumbs />
+        <BreadCrumbs />
         {/*
 		  <PageTitle
 		  title="Transactions"
@@ -59,6 +65,9 @@ const Dashboard = () => {
                 <TransactionCard data={d} key={d.id} />
               ))}
             </SimpleGrid>
+            <Button variant="success" mt="6" onClick={onAddTransOpen}>
+              Custom
+            </Button>
           </Box>
         )}
       </Container>

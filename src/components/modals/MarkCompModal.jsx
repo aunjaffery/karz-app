@@ -12,6 +12,7 @@ import {
   FormLabel,
   Input,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import moment from "moment";
 
@@ -48,31 +49,42 @@ const MarkCompModal = ({
       blockScrollOnMount={false}
     >
       <DrawerOverlay />
-      <DrawerContent borderTopRadius={{ base: "xl", md: "none" }}>
-        <DrawerCloseButton color="white" />
+      <DrawerContent
+        borderTopRadius={{ base: "30px", md: "none" }}
+        bg={useColorModeValue("white", "dark.200")}
+      >
+        <DrawerCloseButton color={useColorModeValue("white", "dark.200")} />
         <DrawerHeader borderBottomWidth="1px">Mark as Complete</DrawerHeader>
         <form onSubmit={onMarkCompleteForm}>
           <DrawerBody>
             <Box pt="6">
-              <FormControl color="gray.600" mb="4">
+              <FormControl color="gray.500" mb="4">
                 <FormLabel>Amount</FormLabel>
                 <Input
                   name="amount"
                   type="number"
+                  border={useColorModeValue("1px", "none")}
+                  color={useColorModeValue("black", "white")}
+                  bg={useColorModeValue("white", "dark.100")}
                   max={data?.remaining_amount}
                   defaultValue={data?.remaining_amount}
                   isRequired
                 />
               </FormControl>
-              <FormControl color="gray.600">
+              <FormControl color="gray.500">
                 <FormLabel>Payment Date</FormLabel>
                 <Input
                   name="paymentDate"
                   type="datetime-local"
+                  border={useColorModeValue("1px", "none")}
+                  color={useColorModeValue("black", "white")}
+                  bg={useColorModeValue("white", "dark.100")}
                   isRequired
                   defaultValue={moment().format("YYYY-MM-DDThh:mm")}
                   max={moment().format("YYYY-MM-DDThh:mm")}
-                  min={moment(data?.transaction_date).format("YYYY-MM-DDThh:mm")}
+                  min={moment(data?.transaction_date).format(
+                    "YYYY-MM-DDThh:mm"
+                  )}
                   borderColor="gray.400"
                 />
               </FormControl>
@@ -84,14 +96,14 @@ const MarkCompModal = ({
             gridGap="3"
           >
             <Button
-              colorScheme="green"
+              variant="success"
               type="submit"
               w="full"
               isLoading={markLoading}
             >
               Confirm
             </Button>
-            <Button colorScheme="twitter" onClick={onClose} w="full">
+            <Button variant="danger" onClick={onClose} w="full">
               Close
             </Button>
           </DrawerFooter>
