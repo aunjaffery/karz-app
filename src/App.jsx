@@ -19,12 +19,12 @@ function App() {
   const authCheck = useBoundStore((state) => {
     return state.user ? state.user : false;
   });
-//  useEffect(() => {
-//    // useEffect only if you want whole App private.
-//    if (authCheck === false) navigate("login");
-//    //remove this useEffect if You want some public pages in App.
-//    //Route can handle private pages individually through ProtectedRoute
-//  }, [authCheck]);
+  //  useEffect(() => {
+  //    // useEffect only if you want whole App private.
+  //    if (authCheck === false) navigate("login");
+  //    //remove this useEffect if You want some public pages in App.
+  //    //Route can handle private pages individually through ProtectedRoute
+  //  }, [authCheck]);
 
   return (
     <Box>
@@ -34,21 +34,27 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
           <Route
             path="clients"
+            title="pop"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
-                <Clients />
+                <Clients pageTitle="Clients" />
               </ProtectedRoute>
             }
           />
           <Route
             path="/"
+            title="jkl"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
                 <Dashboard />
               </ProtectedRoute>
             }
           />
-          <Route path="/transaction/:trans_id" element={<TransDetail />} />
+          <Route
+            path="/transaction/:trans_id"
+            title="qwe"
+            element={<TransDetail />}
+          />
           {/*404*/}
           <Route path="*" element={<Test />} />
         </Routes>

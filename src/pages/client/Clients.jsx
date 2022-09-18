@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Container,
   SimpleGrid,
   Text,
@@ -11,8 +10,6 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import AddClientModal from "@comp/modals/AddClientModal";
 import DeleteClientDialog from "@comp/modals/DeleteClientDialog";
-import PageTitle from "@comp/misc/PageTitle";
-import BreadCrumbs from "@comp/misc/BreadCrumbs";
 import ClientCard from "@comp/cards/ClientCard";
 import NoClients from "@comp/placeholders/NoClients";
 import SkeletonClient from "@comp/placeholders/SkeletonClient";
@@ -65,7 +62,7 @@ const Clients = () => {
   };
 
   return (
-    <Box>
+    <Box mt="10">
       <Container maxW="container.xl" h="100%">
         {/*
 		  <PageTitle
@@ -74,13 +71,12 @@ const Clients = () => {
 		  isFetching={isFetching && !isLoading}
 		  />
 		  */}
-        <BreadCrumbs paths={[{ id: 1, name: "Clients", path: "/clients" }]} />
         <Box>
           {isLoading ? (
             <Box pb="12">
               <SimpleGrid
                 columns={{ base: 1, sm: 1, md: 2, lg: 2, xl: 3 }}
-                spacing="10"
+                spacing="6"
               >
                 {[1, 2, 3, 4].map((x) => (
                   <SkeletonClient key={x} />
@@ -99,7 +95,7 @@ const Clients = () => {
             <Box pb="12">
               <SimpleGrid
                 columns={{ base: 1, sm: 1, md: 2, lg: 2, xl: 3 }}
-                spacing="10"
+                spacing="6"
               >
                 {data?.result.map((x) => (
                   <ClientCard
@@ -113,9 +109,6 @@ const Clients = () => {
                   />
                 ))}
               </SimpleGrid>
-              <Button variant="success" mt="6" onClick={onAddClientOpen}>
-                Custom
-              </Button>
               <Box mt="12" px="8">
                 <Text color="gray.500" textAlign="center" fontSize="sm">
                   Please do not add more then 20 clients. I cannot afford to pay

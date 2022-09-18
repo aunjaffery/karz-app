@@ -1,10 +1,17 @@
-import { Box, Flex, Skeleton } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Skeleton,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 const SkeletonTransaction = () => {
+  const { colorMode } = useColorMode();
   return (
     <Box
       maxW="360px"
-      bg="white"
+      bg={useColorModeValue("white", "dark.200")}
       borderRadius="lg"
       boxShadow="md"
       overflow="hidden"
@@ -12,15 +19,21 @@ const SkeletonTransaction = () => {
       h="74px"
     >
       <Flex gridColumnGap="4">
-        <Box w="66px">
-          <Skeleton
-            startColor="red.100"
-            endColor="yellow.100"
-            height="100%"
-            w="66px"
-            h="66px"
-            borderRadius="lg"
-          />
+        <Box w="66px" h="66px">
+          {colorMode === "light" ? (
+            <Skeleton
+              startColor="red.100"
+              endColor="yellow.100"
+              height="100%"
+              w="66px"
+              h="66px"
+              borderRadius="lg"
+            />
+          ) : (
+            <Flex justify="center" align="center" h="full" ml="2">
+              <Skeleton w="50px" h="50px" borderRadius="full" />
+            </Flex>
+          )}
         </Box>
         <Flex w="full" justify="space-between" pr="2">
           <Flex justify="space-evenly" direction="column">

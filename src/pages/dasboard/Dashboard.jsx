@@ -1,20 +1,12 @@
 import { useEffect } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  SimpleGrid,
-  useDisclosure,
-} from "@chakra-ui/react";
-import AddTransModal from "@comp/modals/AddTransModal";
-import PageTitle from "@comp/misc/PageTitle";
-import BreadCrumbs from "@comp/misc/BreadCrumbs";
+import { Box, Container, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import { fetchTransactions } from "../../services/Apis";
+import AddTransModal from "@comp/modals/AddTransModal";
 import TransactionCard from "@comp/cards/TransactionCard";
 import NoTransactions from "@comp/placeholders/NoTransactions";
 import SkeletonTransaction from "@comp/placeholders/SkeletonTransaction";
-import { toast } from "react-toastify";
 
 const Dashboard = () => {
   //1 = lent; 2 = recieved; 3 = borrowed; 4 = repaid;
@@ -38,9 +30,8 @@ const Dashboard = () => {
   } = useDisclosure();
 
   return (
-    <Box>
+    <Box mt="10">
       <Container maxW="container.xl" h="100%">
-        <BreadCrumbs />
         {/*
 		  <PageTitle
 		  title="Transactions"

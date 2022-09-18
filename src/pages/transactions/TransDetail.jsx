@@ -6,7 +6,6 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import BreadCrumbs from "@comp/misc/BreadCrumbs";
 
 const TransDetail = () => {
   return (
@@ -15,16 +14,10 @@ const TransDetail = () => {
       sx={{
         //background: "linear-gradient(to right, #b993d6, #8ca6db)",
       }}
+	  mt="10"
     >
       <Container maxW="container.xl" h="100%">
-        <BreadCrumbs
-          paths={[
-            { id: 1, name: "transaction", path: "/transaction", dis: true },
-          ]}
-          //color="white"
-          //hcolor="white"
-        />
-        <Box mb="10" mt="2" ml="2px">
+        <Box mb="10" ml="2px">
           <Text fontWeight="bold" fontSize="3xl">
             Transaction
           </Text>
