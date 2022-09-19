@@ -7,6 +7,7 @@ export const customColors = {
     100: "#161c2c", //bg
     200: "#252a41", //fg
     300: "#3f69ff", //blue btn
+    400: "#2d3751",
   },
 };
 

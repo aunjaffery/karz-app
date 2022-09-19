@@ -21,13 +21,14 @@ export const addNewTransaction = async (data) => {
   return rsp.data;
 };
 
-export const fetchTransactions = async () => {
-  const rsp = await axios(`${Domain}/api/user/getTransactions`);
+export const fetchTransactions = async ({ queryKey }) => {
+  const [_, data] = queryKey;
+  console.log("<== Query", data);
+  const rsp = await axios.post(`${Domain}/api/user/getTransactions`, data );
   return rsp.data;
 };
 export const getTransactionDetails = async ({ queryKey }) => {
   const [_, trans_id] = queryKey;
-  console.log("<== api", trans_id);
   const rsp = await axios.get(`${Domain}/api/user/getTransactionDetails`, {
     params: { trans_id },
   });

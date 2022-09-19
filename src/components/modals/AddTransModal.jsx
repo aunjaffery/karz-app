@@ -63,12 +63,12 @@ const AddTransModal = ({ isOpen, onClose }) => {
       client_id: "",
       amount: "",
       transaction_date: "",
-      status: "",
+      type: "",
     };
     for (let key of Object.keys(data)) {
       if (!e.target[key]?.value) return;
 
-      if (key === "amount" || key === "status" || key === "client_id") {
+      if (key === "amount" || key === "client_id") {
         data[key] = parseInt(e.target[key].value);
       } else {
         data[key] = e.target[key].value;
@@ -149,8 +149,8 @@ const AddTransModal = ({ isOpen, onClose }) => {
                 <Input
                   name="transaction_date"
                   type="datetime-local"
-                  defaultValue={moment().format("YYYY-MM-DDThh:mm")}
-                  max={moment().format("YYYY-MM-DDThh:mm")}
+                  defaultValue={moment().format("YYYY-MM-DDTHH:mm")}
+                  max={moment().format("YYYY-MM-DDTHH:mm")}
                   border={tborder}
                   color={tcolor}
                   bg={tbg}
@@ -159,19 +159,19 @@ const AddTransModal = ({ isOpen, onClose }) => {
                 />
               </FormControl>
               <FormControl>
-                <FormLabel color="gray.500">Status</FormLabel>
+                <FormLabel color="gray.500">Type</FormLabel>
                 <RadioGroup
-                  defaultValue="1"
+                  defaultValue="lent"
                   ml="1"
                   sx={{ touchAction: "none" }}
-                  name="status"
+                  name="type"
                   isDisabled={!clients?.result?.length}
                 >
                   <Stack direction="row" spacing="6">
-                    <Radio value="1" sx={{ touchAction: "none" }}>
+                    <Radio value="lent" sx={{ touchAction: "none" }}>
                       Lent
                     </Radio>
-                    <Radio value="3" sx={{ touchAction: "none" }}>
+                    <Radio value="borrowed" sx={{ touchAction: "none" }}>
                       Borrowed
                     </Radio>
                   </Stack>

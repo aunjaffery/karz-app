@@ -1,24 +1,22 @@
 import { useEffect } from "react";
-import { Box, Container, SimpleGrid, useDisclosure } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { fetchTransactions } from "../../services/Apis";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useDisclosure,
+} from "@chakra-ui/react";
 import AddTransModal from "@comp/modals/AddTransModal";
-import TransactionCard from "@comp/cards/TransactionCard";
-import NoTransactions from "@comp/placeholders/NoTransactions";
-import SkeletonTransaction from "@comp/placeholders/SkeletonTransaction";
+import AllTransTab from "@comp/tabs/AllTransTab";
+import PendingTransTab from "@comp/tabs/PendingTransTab";
+import DoneTransTab from "@comp/tabs/DoneTransTab";
 
 const Dashboard = () => {
-  //1 = lent; 2 = recieved; 3 = borrowed; 4 = repaid;
-  const {
-    data: transactions,
-    isLoading: transLoading,
-    isFetching,
-  } = useQuery(["fetchTransactions"], fetchTransactions, {
-    refetchOnWindowFocus: false,
-    onError: () => toast.error("Error! Cannot fetch transaction"),
-  });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -30,7 +28,7 @@ const Dashboard = () => {
   } = useDisclosure();
 
   return (
-    <Box mt="10">
+    <Box mt="2">
       <Container maxW="container.xl" h="100%">
         {/*
 		  <PageTitle
@@ -39,25 +37,64 @@ const Dashboard = () => {
 		  isFetching={isFetching && !transLoading}
 		  />
 		  */}
-        {transLoading ? (
-          <Box pb="12">
-            <SimpleGrid columns={[1, 1, 2, 3]} spacing="6">
-              {[1, 2, 3, 4].map((x) => (
-                <SkeletonTransaction key={x} />
-              ))}
-            </SimpleGrid>
-          </Box>
-        ) : !transactions?.result.length ? (
-          <NoTransactions />
-        ) : (
-          <Box pb="12">
-            <SimpleGrid columns={[1, 1, 2, 3]} spacing="3">
-              {transactions?.result.map((d) => (
-                <TransactionCard data={d} key={d.id} />
-              ))}
-            </SimpleGrid>
-          </Box>
-        )}
+        <Tabs
+          size="md"
+          variant="unstyled"
+          isLazy={true}
+          lazyBehavior="keepMounted"
+          align="left"
+        >
+          <TabList>
+            <Flex bg="dark.200" borderRadius="xl" p="1">
+              <Tab
+                _focus={{ outline: "none" }}
+                color="gray.500"
+                _selected={{
+                  bg: "dark.400",
+                  borderRadius: "xl",
+                  color: "white",
+                }}
+              >
+                All
+              </Tab>
+              <Tab
+                _focus={{ outline: "none" }}
+                color="gray.500"
+                _selected={{
+                  bg: "dark.400",
+                  borderRadius: "xl",
+                  color: "white",
+                }}
+              >
+                Pending
+              </Tab>
+              <Tab
+                _focus={{ outline: "none" }}
+                color="gray.500"
+                _selected={{
+                  bg: "dark.400",
+                  borderRadius: "xl",
+                  color: "white",
+                }}
+              >
+                Done
+              </Tab>
+            </Flex>
+          </TabList>
+          <TabPanels mt="6">
+            <TabPanel textAlign="left" p="0">
+              <AllTransTab />
+            </TabPanel>
+            <TabPanel textAlign="left" p="0">
+              <PendingTransTab />
+            </TabPanel>
+            <TabPanel textAlign="left" p="0">
+              <DoneTransTab />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+
+        <Button onClick={onAddTransOpen}>add</Button>
       </Container>
       <AddTransModal isOpen={isAddTransOpen} onClose={onAddTransClose} />
     </Box>

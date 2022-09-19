@@ -33,18 +33,18 @@ const TransDetailModal = ({
     { fallback: "bottom" }
   );
 
-  const statusString = (val) => {
+  const statusString = (val, type) => {
     return (
       <Text
         fontSize="sm"
         bg={
-          val === 1 || val === 5
+          (val === 0 || val === 2) && type === "lent"
             ? "red.400"
-            : val === 2
+            : val === 1 && type === "lent"
             ? "green.400"
-            : val === 3 || val === 6
+            : (val === 0 || val === 2) && type === "borrowed"
             ? "yellow.400"
-            : val === 4
+            : val === 1 && type === "borrowed"
             ? "blue.400"
             : "gray.400"
         }
@@ -56,15 +56,15 @@ const TransDetailModal = ({
         py="1"
         borderRadius="full"
       >
-        {val === 1
+        {val === 0 && type === "lent"
           ? "lent"
-          : val === 2
+          : val === 1 && type === "lent"
           ? "recieved"
-          : val === 3
+          : val === 0 && type === "borrowed"
           ? "borrowed"
-          : val === 4
+          : val === 1 && type === "borrowed"
           ? "repaid"
-          : val === 5 || val === 6
+          : val === 2
           ? "partial"
           : "unknown"}
       </Text>
@@ -108,7 +108,7 @@ const TransDetailModal = ({
                   {data?.transactionclient?.fullName}
                 </Text>
                 <Box textAlign="center" mt="1">
-                  {statusString(data.status)}
+                  {statusString(data.status, data.type)}
                 </Box>
                 <Box mt="2">
                   <Link to={`/transaction/${data?.id}`}>
@@ -133,12 +133,7 @@ const TransDetailModal = ({
                     : "Unknown"}
                 </Text>
               </Box>
-              <Box
-                mt="4"
-                display={
-                  data.status === 2 || data.status === 4 ? "none" : "block"
-                }
-              >
+              <Box mt="4" display={data.status === 1 ? "none" : "block"}>
                 <Text fontSize="xl" textAlign="center">
                   Remaining
                 </Text>
@@ -146,12 +141,7 @@ const TransDetailModal = ({
                   Rs {data?.remaining_amount}
                 </Text>
               </Box>
-              <Box
-                mt="4"
-                display={
-                  data.status === 2 || data.status === 4 ? "block" : "none"
-                }
-              >
+              <Box mt="4" display={data.status === 1 ? "block" : "none"}>
                 <Text fontSize="xl" textAlign="center">
                   Completed on
                 </Text>
@@ -169,7 +159,7 @@ const TransDetailModal = ({
                 borderRadius="full"
                 py="6"
                 px="4"
-                disabled={data.status === 2 || data.status === 4}
+                disabled={data.status === 1}
                 onClick={onMarkCompleteModal}
               >
                 <AiOutlineCheck />

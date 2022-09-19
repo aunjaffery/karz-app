@@ -64,9 +64,7 @@ export default function MobileNav() {
                 ) : (
                   <AiFillHome style={{ marginBottom: "4px" }} size="17px" />
                 )}
-                <Text cursor="pointer" textTransform="capitalize">
-                  {getPath()}
-                </Text>
+                <Text textTransform="capitalize">{getPath()}</Text>
               </Flex>
             </Flex>
             <Flex alignItems="center">
@@ -138,7 +136,7 @@ const SideDrawer = () => {
           color={"blue.700"}
           _hover={{ color: "blue.600", bg: "blue.100" }}
           _focus={{ backgroundColor: "none" }}
-	  onClick={toggleColorMode}
+          onClick={toggleColorMode}
         >
           Dark
         </MenuItem>

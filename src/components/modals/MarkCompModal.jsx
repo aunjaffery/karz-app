@@ -40,6 +40,7 @@ const MarkCompModal = ({
     if ((!paymentDate, !amount)) return;
     onMarkTransaction(amount, paymentDate);
   };
+
   return (
     <Drawer
       placement={variant}
@@ -80,10 +81,10 @@ const MarkCompModal = ({
                   color={useColorModeValue("black", "white")}
                   bg={useColorModeValue("white", "dark.100")}
                   isRequired
-                  defaultValue={moment().format("YYYY-MM-DDThh:mm")}
-                  max={moment().format("YYYY-MM-DDThh:mm")}
+                  defaultValue={moment().format("YYYY-MM-DDTHH:mm")}
+                  max={moment().format("YYYY-MM-DDTHH:mm")}
                   min={moment(data?.transaction_date).format(
-                    "YYYY-MM-DDThh:mm"
+                    "YYYY-MM-DDTHH:mm"
                   )}
                   borderColor="gray.400"
                 />

@@ -1,4 +1,10 @@
-import { Box, Flex, Text, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 import TransDetailModal from "@comp/modals/TransDetailModal";
 import MarkCompModal from "@comp/modals/MarkCompModal";
 import DeleteClientDialog from "@comp/modals/DeleteClientDialog";
@@ -13,7 +19,7 @@ import {
   AiFillPlusCircle,
   AiFillQuestionCircle,
 } from "react-icons/ai";
-import {MdOutlineIncompleteCircle} from "react-icons/md"
+import { MdOutlineIncompleteCircle } from "react-icons/md";
 
 const TransactionCard = ({ data }) => {
   const queryClient = useQueryClient();
@@ -78,24 +84,34 @@ const TransactionCard = ({ data }) => {
     markTransMutate({ id: data?.id, amount, paymentDate });
   };
 
-  const { id, transactionclient, amount, transaction_date, status, last_transaction } = data;
+  const {
+    id,
+    transactionclient,
+    amount,
+    transaction_date,
+    status,
+    type,
+    last_transaction,
+  } = data;
   const colorSelector = (base, status) => {
-    if (status === 1 || status === 5) {
+    if ((status === 0 || status === 2) && type === "lent") {
       return base === "fg" ? "red.400" : "red.100";
     }
-    if (status === 2) {
+    if (status === 1 && type === "lent") {
       return base === "fg" ? "green.400" : "green.100";
     }
-    if (status === 3 || status === 6) {
+    if ((status === 0 || status === 2) && type === "borrowed") {
       return base === "fg" ? "yellow.400" : "yellow.100";
     }
-    if (status === 4) {
+    if (status === 1 && type === "borrowed") {
       return base === "fg" ? "blue.400" : "blue.100";
     }
     return base === "fg" ? "gray.400" : "gray.100";
   };
 
   let formatter = Intl.NumberFormat("en", { notation: "compact" });
+
+  //type === lent || borrowed		// status === 0 || 1 || 2
 
   return (
     <Box
@@ -112,19 +128,19 @@ const TransactionCard = ({ data }) => {
         <Box>
           <Flex
             color={colorSelector("fg", status)}
-            bg={useColorModeValue(colorSelector("bg", status),"none")}
+            bg={useColorModeValue(colorSelector("bg", status), "none")}
             p="3"
             borderRadius="lg"
           >
-            {status === 1 ? (
+            {status === 0 && type === "lent" ? (
               <AiFillMinusCircle size="42" />
-            ) : status === 2 ? (
+            ) : status === 1 && type === "lent" ? (
               <AiFillCheckCircle size="42" />
-            ) : status === 3 ? (
+            ) : status === 0 && type === "borrowed" ? (
               <AiFillPlusCircle size="42" />
-            ) : status === 4 ? (
+            ) : status === 1 && type === "borrowed" ? (
               <BiRedo size="42" />
-            ) : status === 5  || status === 6? (
+            ) : status === 2 ? (
               <MdOutlineIncompleteCircle size="42" />
             ) : (
               <AiFillQuestionCircle size="42" />
@@ -137,7 +153,9 @@ const TransactionCard = ({ data }) => {
               {transactionclient?.fullName}
             </Text>
             <Text color="gray.500" fontSize="sm">
-              {transaction_date ? moment(transaction_date).format("DD MMM") : "_"}
+              {transaction_date
+                ? moment(transaction_date).format("DD MMM")
+                : "_"}
             </Text>
           </Flex>
           <Flex direction="column" justify="space-evenly">
@@ -145,7 +163,9 @@ const TransactionCard = ({ data }) => {
               Rs {formatter.format(amount)}
             </Text>
             <Text color="gray.500" fontSize="sm">
-              {last_transaction ? moment(last_transaction).format("DD MMM") : "_"}
+              {last_transaction
+                ? moment(last_transaction).format("DD MMM")
+                : "_"}
             </Text>
           </Flex>
         </Flex>
