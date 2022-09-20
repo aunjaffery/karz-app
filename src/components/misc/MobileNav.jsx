@@ -25,6 +25,7 @@ import { BiTransfer } from "react-icons/bi";
 
 export default function MobileNav() {
   const navigate = useNavigate();
+  const { toggleColorMode } = useColorMode();
   const { pathname } = useLocation();
 
   const getPath = () => {
@@ -38,7 +39,11 @@ export default function MobileNav() {
         <Container maxW="container.xl" h="100%">
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
             {location.pathname === "/" ? (
-              <Box _hover={{ color: "blue.300" }} color="blue.400">
+              <Box
+                _hover={{ color: "blue.300" }}
+                color="blue.400"
+                onClick={toggleColorMode}
+              >
                 <RiExchangeFundsLine size="26px" />
               </Box>
             ) : (
@@ -95,7 +100,7 @@ const SideDrawer = () => {
         cursor={"pointer"}
         minW={0}
         _active={{ color: "white" }}
-        color="white"
+        color="blue.400"
       >
         <AiOutlineMenu size="22" />
       </MenuButton>

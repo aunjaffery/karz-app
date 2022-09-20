@@ -15,6 +15,18 @@ export const customComponents = {
   Button: {
     variants: {
       base: {},
+      addition: {
+        bg: "dark.200",
+        color: "green.400",
+        _hover: {
+          bg: "green.500",
+          color: "white",
+        },
+        _active: {
+          bg: "green.600",
+          color: "white",
+        },
+      },
       danger: {
         bg: "red.500",
         color: "white",

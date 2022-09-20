@@ -7,12 +7,11 @@ box-shadow:
 
 
 
-* breadcrub in navbar,
+! breadcrub in navbar,
+! loader and placeholder dark theme,
+! tabs in dashboard
+
+
+
 * drawer in navbar,
-* loader and placeholder dark theme,
-
-
-* tabs in dashboard
-
 * transDetail page pending
-
