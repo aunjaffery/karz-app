@@ -14,8 +14,8 @@ const SkeletonClient = () => {
       <Flex gridColumnGap="3">
         <Box
           bg={useColorModeValue("white", "dark.200")}
-          w="90px"
-          h="90px"
+          w="80px"
+          h="80px"
           borderRadius="full"
           p="2"
         >

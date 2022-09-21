@@ -104,6 +104,7 @@ const TransDetailModal = ({
                   fontSize="xl"
                   textAlign="center"
                   textTransform="capitalize"
+                  noOfLines={1}
                 >
                   {data?.transactionclient?.fullName}
                 </Text>

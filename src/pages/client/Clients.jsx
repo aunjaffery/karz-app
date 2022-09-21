@@ -1,8 +1,11 @@
 import {
   Box,
+  Button,
   Container,
+  Flex,
   SimpleGrid,
   Text,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
@@ -14,9 +17,12 @@ import ClientCard from "@comp/cards/ClientCard";
 import NoClients from "@comp/placeholders/NoClients";
 import SkeletonClient from "@comp/placeholders/SkeletonClient";
 import { fetchUserClients, deleteClient } from "../../services/Apis";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import useBoundStore from "@src/store/Store";
 
 const Clients = () => {
   const [delId, setDelId] = useState(null);
+  const { setTransFetching } = useBoundStore((state) => state);
   const queryClient = useQueryClient();
 
   const { data, isLoading, isFetching } = useQuery(
@@ -27,6 +33,9 @@ const Clients = () => {
       onError: () => toast.error("Error! Cannot fetch transaction"),
     }
   );
+  useEffect(() => {
+    setTransFetching(isFetching);
+  }, [isFetching]);
 
   const { mutate: onDelete, isLoading: delLoading } = useMutation(
     deleteClient,
@@ -62,7 +71,7 @@ const Clients = () => {
   };
 
   return (
-    <Box mt="10">
+    <Box mt={{base: 1, md: 4}}>
       <Container maxW="container.xl" h="100%">
         {/*
 		  <PageTitle
@@ -71,6 +80,30 @@ const Clients = () => {
 		  isFetching={isFetching && !isLoading}
 		  />
 		  */}
+        <Flex justify="flex-end" align="center" mb="6">
+          <Button
+            size="sm"
+            px="4"
+            borderRadius="full"
+            onClick={onAddClientOpen}
+            bg={useColorModeValue("green.400", "dark.200")}
+            color={useColorModeValue("white", "green.400")}
+            _hover={{
+              bg: "green.500",
+              color: "white",
+            }}
+            _active={{
+              bg: "green.600",
+              color: "white",
+            }}
+          >
+            <AiOutlineUserAdd
+              size="15"
+              style={{ marginRight: "2px", marginBottom: "1px" }}
+            />
+            New
+          </Button>
+        </Flex>
         <Box>
           {isLoading ? (
             <Box pb="12">

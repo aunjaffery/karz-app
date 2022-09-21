@@ -19,13 +19,11 @@ import { AiOutlineLeft, AiOutlineMenu } from "react-icons/ai";
 import Ava from "@src/icons/avat.png";
 import useBoundStore from "../../store/Store";
 import { useQueryClient } from "@tanstack/react-query";
-import { HiUsers } from "react-icons/hi";
-import { AiFillHome } from "react-icons/ai";
-import { BiTransfer } from "react-icons/bi";
+import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 
-export default function MobileNav() {
+export default function MobileNav({ display }) {
   const navigate = useNavigate();
-  const { toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
   const { pathname } = useLocation();
 
   const getPath = () => {
@@ -37,13 +35,9 @@ export default function MobileNav() {
     <>
       <Box>
         <Container maxW="container.xl" h="100%">
-          <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+          <Flex h={16} alignItems="center" justifyContent="space-between">
             {location.pathname === "/" ? (
-              <Box
-                _hover={{ color: "blue.300" }}
-                color="blue.400"
-                onClick={toggleColorMode}
-              >
+              <Box _hover={{ color: "blue.300" }} color="blue.400">
                 <RiExchangeFundsLine size="26px" />
               </Box>
             ) : (
@@ -51,6 +45,7 @@ export default function MobileNav() {
                 _hover={{ color: "blue.300" }}
                 color="blue.400"
                 onClick={() => navigate(-1)}
+				cursor="pointer"
               >
                 <AiOutlineLeft size="20px" />
               </Box>
@@ -62,18 +57,32 @@ export default function MobileNav() {
                 align="center"
                 color="blue.400"
               >
-                {getPath() === "clients" ? (
-                  <HiUsers style={{ marginBottom: "3px" }} size="17px" />
-                ) : getPath() === "transaction" ? (
-                  <BiTransfer style={{ marginBottom: "2px" }} size="17px" />
-                ) : (
-                  <AiFillHome style={{ marginBottom: "4px" }} size="17px" />
-                )}
-                <Text textTransform="capitalize">{getPath()}</Text>
+                <Text textTransform="capitalize" fontWeight="bold">
+                  {getPath()}
+                </Text>
               </Flex>
             </Flex>
-            <Flex alignItems="center">
-              <SideDrawer />
+            <Flex alignItems="center" gridColumnGap="4">
+              {colorMode === "light" ? (
+                <Box
+                  color="blue.400"
+                  onClick={toggleColorMode}
+                  cursor="pointer"
+                  mr="1"
+                >
+                  <BsFillMoonFill size="16px" />
+                </Box>
+              ) : (
+                <Box
+                  color="blue.400"
+                  onClick={toggleColorMode}
+                  cursor="pointer"
+                  mr="1"
+                >
+                  <BsFillSunFill size="16px" />
+                </Box>
+              )}
+              {display ? <SideDrawer /> : null}
             </Flex>
           </Flex>
         </Container>
@@ -83,7 +92,6 @@ export default function MobileNav() {
 }
 
 const SideDrawer = () => {
-  const { toggleColorMode } = useColorMode();
   const queryClient = useQueryClient();
   const { logoutService } = useBoundStore((state) => state);
   const onLogout = async () => {
@@ -114,7 +122,7 @@ const SideDrawer = () => {
           <Image src={Ava} h="auto" maxH="100%" />
         </Center>
         <MenuDivider />
-        <NavLink to="/" style={{ background: "blue" }}>
+        <NavLink to="/" style={{ background: "blue" }} end>
           {({ isActive }) => (
             <MenuItem
               color={isActive ? "blue.600" : "gray.700"}
@@ -126,7 +134,7 @@ const SideDrawer = () => {
             </MenuItem>
           )}
         </NavLink>
-        <NavLink to="/clients">
+        <NavLink to="clients">
           {({ isActive }) => (
             <MenuItem
               color={isActive ? "blue.600" : "gray.700"}
@@ -137,14 +145,6 @@ const SideDrawer = () => {
             </MenuItem>
           )}
         </NavLink>
-        <MenuItem
-          color={"blue.700"}
-          _hover={{ color: "blue.600", bg: "blue.100" }}
-          _focus={{ backgroundColor: "none" }}
-          onClick={toggleColorMode}
-        >
-          Dark
-        </MenuItem>
         <MenuItem
           color="gray.700"
           _hover={{ color: "red.600", bg: "red.100" }}

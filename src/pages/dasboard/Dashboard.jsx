@@ -30,7 +30,7 @@ const Dashboard = () => {
   } = useDisclosure();
 
   return (
-    <Box mt="2">
+    <Box mt={{base: 2, md: 4}}>
       <Container maxW="container.xl" h="100%">
         <Tabs
           size="md"

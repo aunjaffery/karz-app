@@ -5,9 +5,11 @@ import { fetchTransactions } from "../../services/Apis";
 import TransactionCard from "@comp/cards/TransactionCard";
 import NoTransactions from "@comp/placeholders/NoTransactions";
 import SkeletonTransaction from "@comp/placeholders/SkeletonTransaction";
+import useBoundStore from "@src/store/Store";
+import { useEffect } from "react";
 
 const DoneTransTab = () => {
-  //1 = lent; 2 = recieved; 3 = borrowed; 4 = repaid;
+  const { setTransFetching } = useBoundStore((state) => state);
   const {
     data: transactions,
     isLoading: transLoading,
@@ -20,6 +22,9 @@ const DoneTransTab = () => {
       onError: () => toast.error("Error! Cannot fetch transaction"),
     }
   );
+  useEffect(() => {
+    setTransFetching(isFetching);
+  }, [isFetching]);
 
   return transLoading ? (
     <Box pb="12">

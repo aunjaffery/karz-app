@@ -2,7 +2,7 @@ import { Box, Container, Text } from "@chakra-ui/react";
 
 const Test = () => {
   return (
-    <Box mt="10">
+    <Box mt="4">
       <Container maxW="container.xl" h="100%">
         <Box pb="6">
           {Array.from(Array(10).keys()).map((x) => (

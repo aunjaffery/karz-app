@@ -149,7 +149,7 @@ const TransactionCard = ({ data }) => {
         </Box>
         <Flex justify="space-between" w="100%" pr="2">
           <Flex direction="column" justify="space-evenly">
-            <Text fontWeight="bold" textTransform="capitalize">
+            <Text fontWeight="bold" textTransform="capitalize" noOfLines={1} maxW="170px">
               {transactionclient?.fullName}
             </Text>
             <Text color="gray.500" fontSize="sm">
@@ -158,7 +158,7 @@ const TransactionCard = ({ data }) => {
                 : "_"}
             </Text>
           </Flex>
-          <Flex direction="column" justify="space-evenly">
+          <Flex direction="column" justify="space-evenly" minW="50px" ml="2">
             <Text fontWeight="bold" color={colorSelector("fg", status)}>
               Rs {formatter.format(amount)}
             </Text>

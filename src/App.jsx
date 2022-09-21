@@ -8,6 +8,7 @@ import TransDetail from "@pages/transactions/TransDetail";
 import SignupPage from "@pages/auth/SignupPage";
 import Clients from "@pages/client/Clients";
 import Test from "@pages/client/Test";
+import Stats from "@pages/stats/Stats";
 import ProtectedRoute from "@src/services/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import useBoundStore from "./store/Store";
@@ -34,7 +35,6 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
           <Route
             path="clients"
-            title="pop"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
                 <Clients pageTitle="Clients" />
@@ -43,10 +43,18 @@ function App() {
           />
           <Route
             path="/"
-            title="jkl"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/stats"
+            title="jkl"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Stats />
               </ProtectedRoute>
             }
           />

@@ -29,11 +29,12 @@ const ClientCard = ({ fullName, sub, delWarning }) => {
     backgroundColor: "#f3f3f4",
     // ... and other options
   });
+  const height = "80px";
   return (
-    <Flex position="relative" ml="45px">
+    <Flex position="relative" ml="40px">
       <Flex
         bg={useColorModeValue("green.100", "dark.200")}
-        h="90px"
+        h={height}
         minW={{ base: "100%", sm: "200px" }}
         borderRadius="md"
         boxShadow="lg"
@@ -41,29 +42,29 @@ const ClientCard = ({ fullName, sub, delWarning }) => {
         justify="space-between"
       >
         <Box
-          h="90px"
-          w="90px"
+          h={height}
+          w={height}
           bg={useColorModeValue("white", "dark.200")}
           borderRadius="full"
           position="absolute"
           top="0"
-          left="-45px"
-          boxShadow="0 0 0.5rem #babbbc"
+          left="-40px"
+          boxShadow="md"
         >
           <Box w="100%" h="100%" p="1">
             <Avatar name="Dan Abrahmov" src={svg} h="100%" w="100%" />
           </Box>
         </Box>
         <Flex
-          ml="45px"
+          ml="40px"
           align="center"
           h="100%"
           justify="flex-start"
           flex={1}
           minW={{ base: 0, sm: "195px" }}
         >
-          <Box ml="4">
-            <Text fontSize="lg" textTransform="capitalize" whiteSpace="nowrap">
+          <Box ml={{ base: 3, md: 4 }} mr="2">
+            <Text fontSize="lg" textTransform="capitalize" noOfLines={1}>
               {fullName}
             </Text>
             <Text
@@ -77,7 +78,13 @@ const ClientCard = ({ fullName, sub, delWarning }) => {
           </Box>
         </Flex>
         <Box bg={useColorModeValue("#fafafa", "dark.200")} py="4" pr="4">
-          <Flex borderLeftWidth={useColorModeValue("none", "2px")} h="full" justify="center" align="center" pl="2">
+          <Flex
+            borderLeftWidth={useColorModeValue("none", "2px")}
+            h="full"
+            justify="center"
+            align="center"
+            pl="2"
+          >
             <IconButton
               size="sm"
               bg="none"
