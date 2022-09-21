@@ -15,3 +15,4 @@ box-shadow:
 * transDetail page pending
 * stats page
 * settings page(profile)
+* client detials (transactions)
