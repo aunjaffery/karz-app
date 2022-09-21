@@ -21,6 +21,7 @@ const AllTransTab = () => {
   });
   useEffect(() => {
     setTransFetching(isFetching);
+    return () => setTransFetching(false);
   }, [isFetching]);
 
   return transLoading ? (

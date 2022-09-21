@@ -35,6 +35,7 @@ const Clients = () => {
   );
   useEffect(() => {
     setTransFetching(isFetching);
+    return () => setTransFetching(false);
   }, [isFetching]);
 
   const { mutate: onDelete, isLoading: delLoading } = useMutation(
@@ -71,7 +72,7 @@ const Clients = () => {
   };
 
   return (
-    <Box mt={{base: 1, md: 4}}>
+    <Box mt={{ base: 1, md: 4 }}>
       <Container maxW="container.xl" h="100%">
         {/*
 		  <PageTitle

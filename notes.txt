@@ -12,6 +12,6 @@ box-shadow:
 ! tabs in dashboard
 
 
-** arrow sign change (back btn)
-* drawer in navbar,
 * transDetail page pending
+* stats page
+* settings page(profile)

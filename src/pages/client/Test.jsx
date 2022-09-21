@@ -1,4 +1,4 @@
-import { Box, Container, Text } from "@chakra-ui/react";
+import { Box, Container, Text, useColorModeValue } from "@chakra-ui/react";
 
 const Test = () => {
   return (
@@ -6,7 +6,13 @@ const Test = () => {
       <Container maxW="container.xl" h="100%">
         <Box pb="6">
           {Array.from(Array(10).keys()).map((x) => (
-            <Box key={x} p="6" bg="gray.200" mb="6" borderRadius="lg">
+            <Box
+              key={x}
+              p="6"
+              bg={useColorModeValue("gray.200", "dark.200")}
+              mb="6"
+              borderRadius="lg"
+            >
               <Text fontWeight="bold" mb="2" fontSize="xl">
                 Heading {x + 1}
               </Text>
