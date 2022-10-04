@@ -14,7 +14,7 @@ import { NavLink } from "react-router-dom";
 
 const BottomNav = () => {
   const { transFetching } = useBoundStore((state) => state);
-  console.log("<== fetching", transFetching);
+//  console.log("<== fetching", transFetching);
   const activeColor = useColorModeValue("gray.800", "white");
   const size = 22;
   return (
@@ -81,7 +81,7 @@ const BottomNav = () => {
               </Flex>
             )}
           </NavLink>
-          <NavLink to="setting">
+          <NavLink to="settings">
             {({ isActive }) => (
               <Flex
                 color={isActive ? activeColor : "gray.500"}
@@ -89,7 +89,7 @@ const BottomNav = () => {
                 align="center"
               >
                 <AiTwotoneSetting size={size} />
-                <Text fontSize="xs">Setting</Text>
+                <Text fontSize="xs">Settings</Text>
               </Flex>
             )}
           </NavLink>

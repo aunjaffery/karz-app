@@ -5,6 +5,7 @@ import { fetchTransactions } from "../../services/Apis";
 import TransactionCard from "@comp/cards/TransactionCard";
 import NoTransactions from "@comp/placeholders/NoTransactions";
 import SkeletonTransaction from "@comp/placeholders/SkeletonTransaction";
+import ErrorFlex from "@comp/placeholders/ErrorFlex";
 import useBoundStore from "@src/store/Store";
 import { useEffect } from "react";
 
@@ -14,6 +15,7 @@ const PendingTransTab = () => {
   const {
     data: transactions,
     isLoading: transLoading,
+    isError,
     isFetching,
   } = useQuery(
     ["fetchTransactions", { status: "pending", page: 2 }],
@@ -27,6 +29,10 @@ const PendingTransTab = () => {
     setTransFetching(isFetching);
     return () => setTransFetching(false);
   }, [isFetching]);
+
+  if (isError) {
+    return <ErrorFlex />;
+  }
 
   return transLoading ? (
     <Box pb="12">

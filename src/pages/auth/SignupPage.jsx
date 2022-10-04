@@ -14,11 +14,12 @@ const SignupPage = () => {
   }, [user]);
   const onSignup = async (e) => {
     e.preventDefault();
+    let fullName = e.target.fullName.value;
     let email = e.target.email.value;
     let pass = e.target.password.value;
     let pass2 = e.target.password2.value;
-    if (!email || !pass || !pass2) return;
-    signUpService(email, pass, pass2);
+    if (!fullName || !email || !pass || !pass2) return;
+    signUpService(fullName, email, pass, pass2);
   };
   return (
     <Box h="100vh" bg="blue.600">
@@ -57,6 +58,26 @@ const SignupPage = () => {
                 <Text color="gray.500">Let's join us :)</Text>
               </Box>
               <Box mt="8">
+                <Text color="gray.500">Name</Text>
+                <Input
+                  type="text"
+                  name="fullName"
+                  minW={{ base: "300px", md: "400px" }}
+                  bg="gray.200"
+                  size={{ base: "md", md: "lg" }}
+                  mt="2"
+                  color="gray.600"
+                  _focus={{
+                    boxShadow: "none !important",
+                    borderColor: "gray.400",
+                  }}
+                  _hover={{
+                    borderColor: "gray.400",
+                  }}
+                  isRequired={true}
+                />
+              </Box>
+              <Box mt="5">
                 <Text color="gray.500">Email</Text>
                 <Input
                   type="email"
@@ -86,6 +107,7 @@ const SignupPage = () => {
                   size={{ base: "md", md: "lg" }}
                   mt="2"
                   minLength={6}
+                  maxLength={10}
                   color="gray.600"
                   _focus={{
                     boxShadow: "none !important",
@@ -107,6 +129,7 @@ const SignupPage = () => {
                   size={{ base: "md", md: "lg" }}
                   mt="2"
                   minLength={6}
+                  maxLength={15}
                   color="gray.600"
                   _focus={{
                     boxShadow: "none !important",

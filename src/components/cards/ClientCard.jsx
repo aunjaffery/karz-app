@@ -64,7 +64,7 @@ const ClientCard = ({ fullName, sub, delWarning }) => {
           minW={{ base: 0, sm: "195px" }}
         >
           <Box ml={{ base: 3, md: 4 }} mr="2">
-            <Text fontSize="lg" textTransform="capitalize" noOfLines={1}>
+            <Text fontSize="lg" textTransform="capitalize" noOfLines={1} maxW="170px">
               {fullName}
             </Text>
             <Text

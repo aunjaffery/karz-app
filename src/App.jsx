@@ -9,6 +9,10 @@ import SignupPage from "@pages/auth/SignupPage";
 import Clients from "@pages/client/Clients";
 import Test from "@pages/client/Test";
 import Stats from "@pages/stats/Stats";
+import Settings from "@pages/settings/Settings";
+import Profile from "@pages/profile/Profile";
+import AboutMe from "@pages/aboutme/AboutMe";
+import Terms from "@pages/terms/Terms";
 import ProtectedRoute from "@src/services/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import useBoundStore from "./store/Store";
@@ -37,7 +41,7 @@ function App() {
             path="clients"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
-                <Clients pageTitle="Clients" />
+                <Clients />
               </ProtectedRoute>
             }
           />
@@ -50,8 +54,7 @@ function App() {
             }
           />
           <Route
-            path="/stats"
-            title="jkl"
+            path="stats"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
                 <Stats />
@@ -59,9 +62,44 @@ function App() {
             }
           />
           <Route
-            path="/transaction/:trans_id"
-            title="qwe"
-            element={<TransDetail />}
+            path="transaction/:trans_id"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <TransDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="settings/profile"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="settings/aboutme"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <AboutMe />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="settings/terms"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Terms />
+              </ProtectedRoute>
+            }
           />
           {/*404*/}
           <Route path="*" element={<Test />} />

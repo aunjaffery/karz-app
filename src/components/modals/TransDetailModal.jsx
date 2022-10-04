@@ -111,18 +111,20 @@ const TransDetailModal = ({
                 <Box textAlign="center" mt="1">
                   {statusString(data.status, data.type)}
                 </Box>
-                <Box mt="2">
-                  <Link to={`/transaction/${data?.id}`}>
-                    <Text
-                      fontSize="sm"
-                      color="blue.400"
-                      cursor="pointer"
-                      _hover={{ textDecoration: "underline" }}
-                    >
-                      View details
-                    </Text>
-                  </Link>
-                </Box>
+                {data.status === 1 || data.status === 2 ? (
+                  <Box mt="2">
+                    <Link to={`/transaction/${data?.id}`}>
+                      <Text
+                        fontSize="sm"
+                        color="blue.400"
+                        cursor="pointer"
+                        _hover={{ textDecoration: "underline" }}
+                      >
+                        View details
+                      </Text>
+                    </Link>
+                  </Box>
+                ) : null}
               </Box>
               <Box mt="3">
                 <Text fontSize="3xl" textAlign="center">
@@ -176,7 +178,6 @@ const TransDetailModal = ({
               </Button>
               <Button
                 colorScheme="twitter"
-                mr={3}
                 onClick={onClose}
                 borderRadius="full"
                 py="6"

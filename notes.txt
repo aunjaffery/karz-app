@@ -1,18 +1,22 @@
-box-shadow:
-    0 0 50px #fff,
-    -10px 0 80px #f0f,
-    10px 0 80px #0ff;
 
-//sick drop shadow
+status: 0, type: lent		--->		lent-pending
+status: 1, type: lent		--->		lent-done
+status: 2, type: lent		--->		lent-partial
 
-
-
-! breadcrub in navbar,
-! loader and placeholder dark theme,
-! tabs in dashboard
+status: 0, type: borrowed	--->		borrowed-pending
+status: 1, type: borrowed	--->		borrowed-done
+status: 2, type: borrowed	--->		borrowed-partial
 
 
-* transDetail page pending
-* stats page
-* settings page(profile)
+--------------------------To-Dos-------------------------
 * client detials (transactions)
+* infinite pagination in transactions **
+
+--------------------------Done---------------------------
+! breadcrub in navbar,
+! loader and placeholder dark theme
+! tabs in dashboard
+! transDetail page pending
+! stats page
+! only specific page title in Navbar. rest "404"
+! settings page(profile)

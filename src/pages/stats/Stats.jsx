@@ -1,18 +1,37 @@
-import { Box, Container, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Spinner } from "@chakra-ui/react";
+import PieChart from "@comp/charts/PieChart";
+import ErrorFlex from "@comp/placeholders/ErrorFlex";
+import { getChartData } from "../../services/Apis";
+import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const Stats = () => {
+  const {
+    data: chartData,
+    isLoading: chartLoading,
+    isError,
+  } = useQuery(["getChartData"], getChartData, {
+    refetchOnWindowFocus: false,
+    onError: () => toast.error("Error! Cannot fetch chart data"),
+  });
+  if (isError) {
+    return <ErrorFlex />;
+  }
+  if (chartLoading) {
+    return (
+      <Flex w="100%" minH="400px" justify="center" align="center">
+        <Spinner size="lg" color="blue.400" />
+      </Flex>
+    );
+  }
   return (
-    <Box mt="4">
-      <Container maxW="container.xl" h="100%">
-        <Box px="4">
-          <Text fontWeight="bold" mb="2" fontSize="xl">
-            Statistics
-          </Text>
-          <Text color="gray.500">
-            We are preparing something exciting & amazing for you.
-          </Text>
+    <Box mt="8">
+      <Box px="4">
+        <Box w="100%" maxW="500px" mx="auto">
+          <PieChart chartData={chartData?.result} />
         </Box>
-      </Container>
+      </Box>
+      <Container maxW="container.xl" h="100%"></Container>
     </Box>
   );
 };

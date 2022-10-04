@@ -42,9 +42,18 @@ export default function MobileNav({ display }) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { pathname } = useLocation();
 
+  const pathList = [
+    "login",
+    "signup",
+    "clients",
+    "stats",
+    "transaction",
+    "settings",
+  ];
+
   const getPath = () => {
     const sp = pathname.split("/");
-    return sp[1] ? sp[1] : "home";
+    return sp[1] ? (pathList.includes(sp[1]) ? sp[1] : "404") : "home";
   };
 
   return (
@@ -59,20 +68,14 @@ export default function MobileNav({ display }) {
             ) : (
               <Box
                 _hover={{ color: "blue.300" }}
-                color="blue.400"
                 onClick={() => navigate(-1)}
                 cursor="pointer"
               >
                 <AiOutlineLeft size="20px" />
               </Box>
             )}
-            <Flex align="center" mr="2">
-              <Flex
-                gridColumnGap="1"
-                justify="center"
-                align="center"
-                color="blue.400"
-              >
+            <Flex align="center">
+              <Flex gridColumnGap="1" justify="center" align="center">
                 <Text textTransform="capitalize" fontWeight="bold">
                   {getPath()}
                 </Text>
@@ -81,19 +84,11 @@ export default function MobileNav({ display }) {
             <Flex alignItems="center" gridColumnGap="4">
               <GuidePopup />
               {colorMode === "light" ? (
-                <Box
-                  color="blue.400"
-                  onClick={toggleColorMode}
-                  cursor="pointer"
-                >
+                <Box onClick={toggleColorMode} cursor="pointer">
                   <BsFillMoonFill size="16px" />
                 </Box>
               ) : (
-                <Box
-                  color="blue.400"
-                  onClick={toggleColorMode}
-                  cursor="pointer"
-                >
+                <Box onClick={toggleColorMode} cursor="pointer">
                   <BsFillSunFill size="16px" />
                 </Box>
               )}
@@ -109,7 +104,7 @@ const GuidePopup = () => {
   return (
     <Popover placement="bottom-start">
       <PopoverTrigger>
-        <Box color="blue.400" cursor="pointer">
+        <Box cursor="pointer">
           <AiOutlineQuestion size="16px" />
         </Box>
       </PopoverTrigger>
@@ -190,7 +185,6 @@ const SideDrawer = () => {
         cursor={"pointer"}
         minW={0}
         _active={{ color: "white" }}
-        color="blue.400"
       >
         <AiOutlineMenu size="22" />
       </MenuButton>
@@ -216,6 +210,18 @@ const SideDrawer = () => {
             </MenuItem>
           )}
         </NavLink>
+        <NavLink to="stats" style={{ background: "blue" }} end>
+          {({ isActive }) => (
+            <MenuItem
+              color={isActive ? "blue.600" : "gray.700"}
+              bg={isActive ? "blue.100" : "none"}
+              _hover={{ color: "blue.600", bg: "blue.100" }}
+              _focus={{ backgroundColor: "none" }}
+            >
+              Stats
+            </MenuItem>
+          )}
+        </NavLink>
         <NavLink to="clients">
           {({ isActive }) => (
             <MenuItem
@@ -224,6 +230,17 @@ const SideDrawer = () => {
               _hover={{ color: "blue.600", bg: "blue.100" }}
             >
               Clients
+            </MenuItem>
+          )}
+        </NavLink>
+        <NavLink to="settings">
+          {({ isActive }) => (
+            <MenuItem
+              color={isActive ? "blue.600" : "gray.700"}
+              bg={isActive ? "blue.100" : "none"}
+              _hover={{ color: "blue.600", bg: "blue.100" }}
+            >
+              Settings
             </MenuItem>
           )}
         </NavLink>

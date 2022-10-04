@@ -5,15 +5,16 @@ import { fetchTransactions } from "../../services/Apis";
 import TransactionCard from "@comp/cards/TransactionCard";
 import NoTransactions from "@comp/placeholders/NoTransactions";
 import SkeletonTransaction from "@comp/placeholders/SkeletonTransaction";
+import ErrorFlex from "@comp/placeholders/ErrorFlex";
 import useBoundStore from "@src/store/Store";
 import { useEffect } from "react";
 
 const AllTransTab = () => {
   const { setTransFetching } = useBoundStore((state) => state);
-  //1 = lent; 2 = recieved; 3 = borrowed; 4 = repaid;
   const {
     data: transactions,
     isLoading: transLoading,
+    isError,
     isFetching,
   } = useQuery(["fetchTransactions"], fetchTransactions, {
     refetchOnWindowFocus: false,
@@ -23,6 +24,10 @@ const AllTransTab = () => {
     setTransFetching(isFetching);
     return () => setTransFetching(false);
   }, [isFetching]);
+
+  if (isError) {
+    return <ErrorFlex />;
+  }
 
   return transLoading ? (
     <Box pb="12">

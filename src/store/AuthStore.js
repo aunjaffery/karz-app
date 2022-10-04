@@ -13,7 +13,6 @@ const createAuthStore = (set, get) => ({
     set({ user: null, authLoading: false, tokenLoading: false });
   },
   loginService: async (email, password) => {
-    console.log(email, password);
     set({ authLoading: true });
     try {
       const rsp = await axios.post(`${Domain}/api/user/login`, {
@@ -27,7 +26,6 @@ const createAuthStore = (set, get) => ({
         set({ authLoading: false, user: null });
       }
     } catch (error) {
-      console.log(error?.response);
       set({ authLoading: false });
       toast.error("Error! Invalid credentials");
     }
@@ -42,11 +40,10 @@ const createAuthStore = (set, get) => ({
         set({ tokenLoading: false, user: null });
       }
     } catch (error) {
-      console.log(error?.response);
       get().logoutService();
     }
   },
-  signUpService: async (email, pass, pass2) => {
+  signUpService: async (fullName, email, pass, pass2) => {
     set({ authLoading: true });
     if (pass !== pass2) {
       toast.error("Error! Passwords do not match");
@@ -54,6 +51,7 @@ const createAuthStore = (set, get) => ({
     }
     try {
       const rsp = await axios.post(`${Domain}/api/user/signup`, {
+        fullName,
         email,
         password: pass,
         password2: pass2,
@@ -65,7 +63,6 @@ const createAuthStore = (set, get) => ({
         set({ authLoading: false, user: null });
       }
     } catch (error) {
-      console.log(error?.response);
       set({ authLoading: false });
       toast.error("Error! Cannot sign up");
     }

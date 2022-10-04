@@ -1,6 +1,16 @@
 import axios from "axios";
 import Domain from "./Endpoint";
 
+export const updateUserName = async (name) => {
+  const rsp = await axios.post(`${Domain}/api/user/changeName`, name);
+  return rsp.data;
+};
+
+export const changeUserPass = async (data) => {
+  const rsp = await axios.post(`${Domain}/api/user/changePass`, data);
+  return rsp.data;
+};
+
 export const addNewClient = async (client) => {
   const rsp = await axios.post(`${Domain}/api/user/createClient`, client);
   return rsp.data;
@@ -23,8 +33,7 @@ export const addNewTransaction = async (data) => {
 
 export const fetchTransactions = async ({ queryKey }) => {
   const [_, data] = queryKey;
-  console.log("<== Query", data);
-  const rsp = await axios.post(`${Domain}/api/user/getTransactions`, data );
+  const rsp = await axios.post(`${Domain}/api/user/getTransactions`, data);
   return rsp.data;
 };
 export const getTransactionDetails = async ({ queryKey }) => {
@@ -41,5 +50,10 @@ export const deleteTransaction = async (id) => {
 };
 export const markTransaction = async (data) => {
   const rsp = await axios.post(`${Domain}/api/user/markTransaction`, data);
+  return rsp.data;
+};
+
+export const getChartData = async () => {
+  const rsp = await axios(`${Domain}/api/user/pieTransaction`);
   return rsp.data;
 };
