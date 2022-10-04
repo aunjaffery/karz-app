@@ -11,6 +11,8 @@ status: 2, type: borrowed	--->		borrowed-partial
 --------------------------To-Dos-------------------------
 * client detials (transactions)
 * infinite pagination in transactions **
+* transaction despriction
+* expenses (new feature)
 
 --------------------------Done---------------------------
 ! breadcrub in navbar,
