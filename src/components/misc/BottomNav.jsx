@@ -6,15 +6,19 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { AiFillHome, AiTwotoneSetting } from "react-icons/ai";
-import useBoundStore from "@src/store/Store";
+import {
+  AiFillDollarCircle,
+  AiFillHome,
+  AiTwotoneSetting,
+} from "react-icons/ai";
 import { HiUsers } from "react-icons/hi";
 import { BiStats } from "react-icons/bi";
+import useBoundStore from "@src/store/Store";
 import { NavLink } from "react-router-dom";
 
 const BottomNav = () => {
   const { transFetching } = useBoundStore((state) => state);
-//  console.log("<== fetching", transFetching);
+  //  console.log("<== fetching", transFetching);
   const activeColor = useColorModeValue("gray.800", "white");
   const size = 22;
   return (
@@ -54,6 +58,18 @@ const BottomNav = () => {
               >
                 <AiFillHome size={size} />
                 <Text fontSize="xs">Home</Text>
+              </Flex>
+            )}
+          </NavLink>
+          <NavLink to="expense">
+            {({ isActive }) => (
+              <Flex
+                color={isActive ? activeColor : "gray.500"}
+                direction="column"
+                align="center"
+              >
+                <AiFillDollarCircle size={size} />
+                <Text fontSize="xs">Expense</Text>
               </Flex>
             )}
           </NavLink>

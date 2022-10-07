@@ -9,6 +9,7 @@ import SignupPage from "@pages/auth/SignupPage";
 import Clients from "@pages/client/Clients";
 import Test from "@pages/client/Test";
 import Stats from "@pages/stats/Stats";
+import Expense from "@pages/expense/Expense";
 import Settings from "@pages/settings/Settings";
 import Profile from "@pages/profile/Profile";
 import AboutMe from "@pages/aboutme/AboutMe";
@@ -38,14 +39,6 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route
-            path="clients"
-            element={
-              <ProtectedRoute isAllowed={!!authCheck}>
-                <Clients />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
@@ -54,10 +47,26 @@ function App() {
             }
           />
           <Route
+            path="expense"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Expense />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="stats"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
                 <Stats />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="clients"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Clients />
               </ProtectedRoute>
             }
           />

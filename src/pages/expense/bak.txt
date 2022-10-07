@@ -1,0 +1,43 @@
+
+const ExpenseMonth = () => {
+  let formatter = Intl.NumberFormat("en");
+  let wcolor = useColorModeValue("gray.500", "gray.400");
+  return (
+    <Box maxW="400px" mb="4">
+      <Flex justify="space-between" align="center" px="1">
+        <Flex align="center" gridColumnGap="5px">
+          <Box color={wcolor}>
+            <GrStackOverflow />
+          </Box>
+          <Text color={wcolor} fontSize="sm" fontWeight="bold">
+            Total Expense
+          </Text>
+        </Flex>
+        <Text whiteSpace="nowrap" fontWeight="bold" color={wcolor}>
+            Rs {formatter.format(500000)}
+        </Text>
+      </Flex>
+    </Box>
+  );
+};
+
+
+
+const ExpenseMonth = () => {
+  let formatter = Intl.NumberFormat("en");
+  let wcolor = useColorModeValue("white", "white");
+  return (
+    <Flex justify="flex-end" mb="4">
+      <Box bg="red.400" py="2" px="3" borderRadius="lg">
+        <Flex justify="center" align="center" gridColumnGap="2">
+          <Box color={wcolor} mb="2px">
+            <GrStackOverflow />
+          </Box>
+          <Text whiteSpace="nowrap" fontWeight="bold" color={wcolor}>
+            Rs {formatter.format(500000)}
+          </Text>
+        </Flex>
+      </Box>
+    </Flex>
+  );
+};

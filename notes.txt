@@ -13,6 +13,7 @@ status: 2, type: borrowed	--->		borrowed-partial
 * infinite pagination in transactions **
 * transaction despriction
 * expenses (new feature)
+* take care of year in expenses. back and front
 
 --------------------------Done---------------------------
 ! breadcrub in navbar,

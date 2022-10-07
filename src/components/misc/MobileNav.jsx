@@ -45,8 +45,9 @@ export default function MobileNav({ display }) {
   const pathList = [
     "login",
     "signup",
-    "clients",
+    "expense",
     "stats",
+    "clients",
     "transaction",
     "settings",
   ];
