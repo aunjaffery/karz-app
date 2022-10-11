@@ -12,7 +12,6 @@ status: 2, type: borrowed	--->		borrowed-partial
 * client detials (transactions)
 * infinite pagination in transactions **
 * transaction despriction
-* expenses (new feature)
 
 --------------------------Done---------------------------
 ! breadcrub in navbar,
@@ -22,3 +21,6 @@ status: 2, type: borrowed	--->		borrowed-partial
 ! stats page
 ! only specific page title in Navbar. rest "404"
 ! settings page(profile)
+! take care of year in expenses. back and front
+! expenses (new feature)
+! No expense found svg renew

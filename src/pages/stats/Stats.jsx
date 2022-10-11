@@ -1,37 +1,66 @@
-import { Box, Container, Flex, Spinner } from "@chakra-ui/react";
-import PieChart from "@comp/charts/PieChart";
-import ErrorFlex from "@comp/placeholders/ErrorFlex";
-import { getChartData } from "../../services/Apis";
-import { toast } from "react-toastify";
-import { useQuery } from "@tanstack/react-query";
+import {
+  Box,
+  Flex,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import WeekGraph from "@comp/tabs/WeekGraph";
+import MonthGraph from "@comp/tabs/MonthGraph";
 
 const Stats = () => {
-  const {
-    data: chartData,
-    isLoading: chartLoading,
-    isError,
-  } = useQuery(["getChartData"], getChartData, {
-    refetchOnWindowFocus: false,
-    onError: () => toast.error("Error! Cannot fetch chart data"),
-  });
-  if (isError) {
-    return <ErrorFlex />;
-  }
-  if (chartLoading) {
-    return (
-      <Flex w="100%" minH="400px" justify="center" align="center">
-        <Spinner size="lg" color="blue.400" />
-      </Flex>
-    );
-  }
   return (
-    <Box mt="8">
-      <Box px="4">
-        <Box w="100%" maxW="500px" mx="auto">
-          <PieChart chartData={chartData?.result} />
-        </Box>
-      </Box>
-      <Container maxW="container.xl" h="100%"></Container>
+    <Box mb="4" mt="2">
+      <Tabs
+        size="md"
+        variant="unstyled"
+        isLazy={true}
+        lazyBehavior="keepMounted"
+        align="center"
+      >
+        <TabList>
+          <Flex
+            bg={useColorModeValue("white", "dark.200")}
+            borderRadius="xl"
+            boxShadow="sm"
+            p="1"
+          >
+            <Tab
+              _focus={{ outline: "none" }}
+              color="gray.400"
+              _selected={{
+                bg: useColorModeValue("bg.100", "dark.400"),
+                borderRadius: "xl",
+                color: useColorModeValue("gray.600", "white"),
+              }}
+            >
+              Week
+            </Tab>
+            <Tab
+              _focus={{ outline: "none" }}
+              color="gray.400"
+              _selected={{
+                bg: useColorModeValue("bg.100", "dark.400"),
+                borderRadius: "xl",
+                color: useColorModeValue("gray.600", "white"),
+              }}
+            >
+              Year
+            </Tab>
+          </Flex>
+        </TabList>
+        <TabPanels mt="5">
+          <TabPanel textAlign="left" p="0">
+            <WeekGraph />
+          </TabPanel>
+          <TabPanel textAlign="left" p="0">
+            <MonthGraph />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };

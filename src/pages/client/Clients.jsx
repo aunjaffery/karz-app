@@ -21,6 +21,9 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import useBoundStore from "@src/store/Store";
 
 const Clients = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [delId, setDelId] = useState(null);
   const { setTransFetching } = useBoundStore((state) => state);
   const queryClient = useQueryClient();

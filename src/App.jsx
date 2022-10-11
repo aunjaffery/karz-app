@@ -7,9 +7,11 @@ import Dashboard from "@pages/dasboard/Dashboard";
 import TransDetail from "@pages/transactions/TransDetail";
 import SignupPage from "@pages/auth/SignupPage";
 import Clients from "@pages/client/Clients";
-import Test from "@pages/client/Test";
+import PageNotFound from "@comp/placeholders/PageNotFound";
 import Stats from "@pages/stats/Stats";
+import Expense from "@pages/expense/Expense";
 import Settings from "@pages/settings/Settings";
+import Guide from "@pages/guide/Guide";
 import Profile from "@pages/profile/Profile";
 import AboutMe from "@pages/aboutme/AboutMe";
 import Terms from "@pages/terms/Terms";
@@ -38,18 +40,18 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route
-            path="clients"
+            path="loan"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
-                <Clients />
+                <Dashboard />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/"
+            path="expense"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
-                <Dashboard />
+                <Expense />
               </ProtectedRoute>
             }
           />
@@ -58,6 +60,14 @@ function App() {
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
                 <Stats />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="clients"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Clients />
               </ProtectedRoute>
             }
           />
@@ -94,6 +104,14 @@ function App() {
             }
           />
           <Route
+            path="settings/guide"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <Guide />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="settings/terms"
             element={
               <ProtectedRoute isAllowed={!!authCheck}>
@@ -102,7 +120,14 @@ function App() {
             }
           />
           {/*404*/}
-          <Route path="*" element={<Test />} />
+          <Route
+            path="*"
+            element={
+              <ProtectedRoute isAllowed={!!authCheck}>
+                <PageNotFound />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Layout>
       <ToastContainer
