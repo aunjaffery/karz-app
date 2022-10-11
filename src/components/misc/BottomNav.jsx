@@ -6,19 +6,14 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  AiFillDollarCircle,
-  AiFillHome,
-  AiTwotoneSetting,
-} from "react-icons/ai";
+import { AiFillDollarCircle, AiTwotoneSetting } from "react-icons/ai";
 import { HiUsers } from "react-icons/hi";
-import { BiStats } from "react-icons/bi";
+import { BiStats, BiTransferAlt } from "react-icons/bi";
 import useBoundStore from "@src/store/Store";
 import { NavLink } from "react-router-dom";
 
 const BottomNav = () => {
   const { transFetching } = useBoundStore((state) => state);
-  //  console.log("<== fetching", transFetching);
   const activeColor = useColorModeValue("gray.800", "white");
   const size = 22;
   return (
@@ -49,18 +44,6 @@ const BottomNav = () => {
           pt="3"
           color="white"
         >
-          <NavLink to="/" end>
-            {({ isActive }) => (
-              <Flex
-                color={isActive ? activeColor : "gray.500"}
-                direction="column"
-                align="center"
-              >
-                <AiFillHome size={size} />
-                <Text fontSize="xs">Home</Text>
-              </Flex>
-            )}
-          </NavLink>
           <NavLink to="expense">
             {({ isActive }) => (
               <Flex
@@ -70,6 +53,18 @@ const BottomNav = () => {
               >
                 <AiFillDollarCircle size={size} />
                 <Text fontSize="xs">Expense</Text>
+              </Flex>
+            )}
+          </NavLink>
+          <NavLink to="loan">
+            {({ isActive }) => (
+              <Flex
+                color={isActive ? activeColor : "gray.500"}
+                direction="column"
+                align="center"
+              >
+                <BiTransferAlt size={size} />
+                <Text fontSize="xs">Loan</Text>
               </Flex>
             )}
           </NavLink>

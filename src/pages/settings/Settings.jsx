@@ -12,6 +12,7 @@ import * as style from "@dicebear/adventurer";
 import { BsFillMoonFill, BsFillSunFill, BsChevronRight } from "react-icons/bs";
 import { ImUser } from "react-icons/im";
 import { HiChatAlt } from "react-icons/hi";
+import { AiOutlineQuestion } from "react-icons/ai";
 import { RiFileList3Fill, RiLogoutCircleLine } from "react-icons/ri";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -116,7 +117,7 @@ const Settings = () => {
               _hover={{ color: "blue.400" }}
               cursor="pointer"
             >
-              <Flex gridColumnGap="4">
+              <Flex gridColumnGap="4" align="center">
                 <Flex
                   bg={useColorModeValue("gray.200", "dark.200")}
                   borderRadius="lg"
@@ -128,6 +129,31 @@ const Settings = () => {
                   <HiChatAlt />
                 </Flex>
                 <Text>About Me</Text>
+              </Flex>
+              <Flex align="center">
+                <BsChevronRight />
+              </Flex>
+            </Flex>
+          </Link>
+          <Link to="guide">
+            <Flex
+              justify="space-between"
+              align="center"
+              _hover={{ color: "blue.400" }}
+              cursor="pointer"
+            >
+              <Flex gridColumnGap="4" align="center">
+                <Flex
+                  bg={useColorModeValue("gray.200", "dark.200")}
+                  borderRadius="lg"
+                  color={useColorModeValue("black", "white")}
+                  align="center"
+                  px="2"
+                  py="2"
+                >
+                  <AiOutlineQuestion />
+                </Flex>
+                <Text>Guide</Text>
               </Flex>
               <Flex align="center">
                 <BsChevronRight />

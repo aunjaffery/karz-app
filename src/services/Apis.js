@@ -57,3 +57,25 @@ export const getChartData = async () => {
   const rsp = await axios(`${Domain}/api/user/pieTransaction`);
   return rsp.data;
 };
+export const getWeeklyExp = async () => {
+  const rsp = await axios(`${Domain}/api/user/weeklyExpense`);
+  return rsp.data;
+};
+export const getMonthlyExp = async () => {
+  const rsp = await axios(`${Domain}/api/user/monthlyExpense`);
+  return rsp.data;
+};
+
+export const createNewExpense = async (data) => {
+  const rsp = await axios.post(`${Domain}/api/user/createExpense`, data);
+  return rsp.data;
+};
+export const fetchUserExpenses = async ({ queryKey }) => {
+  const [_, data] = queryKey;
+  const rsp = await axios.post(`${Domain}/api/user/getExpenses`, data);
+  return rsp.data;
+};
+export const deleteExpense = async (id) => {
+  const rsp = await axios.delete(`${Domain}/api/user/deleteExpense/${id}`);
+  return rsp.data;
+};

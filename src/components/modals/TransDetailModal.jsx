@@ -132,7 +132,7 @@ const TransDetailModal = ({
                 </Text>
                 <Text fontSize="sm" color="gray.500" textAlign="center">
                   {data?.transaction_date
-                    ? moment(data?.transaction_date).format("ddd, Do MMM hA")
+                    ? moment(data?.transaction_date).format("hA ddd, Do MMM YY")
                     : "Unknown"}
                 </Text>
               </Box>

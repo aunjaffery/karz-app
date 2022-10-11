@@ -121,10 +121,8 @@ const TransactionCard = ({ data }) => {
       borderRadius="lg"
       boxShadow="md"
       key={id}
-      cursor="pointer"
-      onClick={onDetailOpen}
     >
-      <Flex gridColumnGap="2" w="100%">
+      <Flex gridColumnGap="2" w="100%" onClick={onDetailOpen} cursor="pointer">
         <Box>
           <Box
             color={colorSelector("fg", status)}
@@ -149,7 +147,12 @@ const TransactionCard = ({ data }) => {
         </Box>
         <Flex justify="space-between" w="100%" pr="2">
           <Flex direction="column" justify="space-evenly">
-            <Text fontWeight="bold" textTransform="capitalize" noOfLines={1} maxW="185px">
+            <Text
+              fontWeight="bold"
+              textTransform="capitalize"
+              noOfLines={1}
+              maxW="185px"
+            >
               {transactionclient?.fullName}
             </Text>
             <Text color="gray.500" fontSize="sm">

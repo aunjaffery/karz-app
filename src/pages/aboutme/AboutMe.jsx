@@ -1,4 +1,5 @@
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import {
   AiFillGithub,
   AiFillGitlab,
@@ -6,6 +7,9 @@ import {
   AiOutlineGoogle,
 } from "react-icons/ai";
 const AboutMe = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Box mt="4">
       <Container maxW="container.xl" h="100%">

@@ -9,7 +9,7 @@ const SignupPage = () => {
   const { signUpService, authLoading, user } = useBoundStore((state) => state);
   useEffect(() => {
     if (!!user) {
-      navigate("/");
+      navigate("/expense");
     }
   }, [user]);
   const onSignup = async (e) => {

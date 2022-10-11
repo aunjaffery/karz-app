@@ -8,25 +8,60 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { data } from "./data";
-import { AiFillDelete, AiOutlinePlus } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import ExpenseCard from "@comp/cards/ExpenseCard";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUserExpenses } from "../../services/Apis";
+import ErrorFlex from "@comp/placeholders/ErrorFlex";
+import { AiOutlinePlus } from "react-icons/ai";
 import { GrStackOverflow } from "react-icons/gr";
+import AddExpenseModal from "@comp/modals/AddExpenseModal";
+import SkeletonExpense from "@comp/placeholders/SkeletonExpense";
+import NoExpense from "@comp/placeholders/NoExpense";
+import useBoundStore from "@src/store/Store";
 import moment from "moment";
-import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Expense = () => {
-  const [selectedMon, setSelectedMon] = useState(moment().format("MMM YYYY"));
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const { setTransFetching } = useBoundStore((state) => state);
+  const [selectedMon, setSelectedMon] = useState(moment().format("MMM-YYYY"));
+  const { data, isLoading, isFetching, isError } = useQuery(
+    ["fetchUserExpenses", { date: selectedMon }],
+    fetchUserExpenses,
+    {
+      refetchOnWindowFocus: false,
+      onError: () => toast.error("Error! Cannot fetch expenses"),
+    }
+  );
+  useEffect(() => {
+    setTransFetching(isFetching);
+    return () => setTransFetching(false);
+  }, [isFetching]);
   let monthFunc = () => {
     let monthArr = [];
     for (let i = 3; i >= 0; i--) {
-      monthArr.push(moment().subtract(i, "month").format("MMM YYYY"));
+      monthArr.push(moment().subtract(i, "month").format("MMM-YYYY"));
     }
     return monthArr;
   };
+  const {
+    isOpen: isAddExpOpen,
+    onOpen: onAddExpOpen,
+    onClose: onAddExpClose,
+  } = useDisclosure();
+
   let monthBg = useColorModeValue("white", "dark.200");
   let monthBr = useColorModeValue("green.300", "green.800");
   let btnBg = useColorModeValue("green.400", "dark.200");
   let btnColor = useColorModeValue("white", "green.400");
+
+  if (isError) {
+    return <ErrorFlex />;
+  }
+
   return (
     <Box mt="2">
       <Container maxW="container.xl" h="100%">
@@ -52,7 +87,7 @@ const Expense = () => {
                   textAlign="center"
                   whiteSpace="nowrap"
                 >
-                  {moment(x, "MMM YYYY").format("MMM")}
+                  {moment(x, "MMM-YYYY").format("MMM")}
                 </Text>
               </Box>
             ))}
@@ -61,6 +96,7 @@ const Expense = () => {
             size="sm"
             borderRadius="full"
             px="0"
+            onClick={onAddExpOpen}
             bg={btnBg}
             color={btnColor}
             _hover={{
@@ -75,104 +111,48 @@ const Expense = () => {
             <AiOutlinePlus size="18" />
           </Button>
         </Flex>
-        <Box py="5">
-          <ExpenseMonth />
-          <SimpleGrid columns={[1, 1, 2, 3]} spacing="3">
-            {data.map((x) => (
-              <ExpenseCard key={x.id} data={x} />
-            ))}
-          </SimpleGrid>
-        </Box>
+        {isLoading ? (
+          <Box py="5">
+            <SimpleGrid columns={[1, 1, 2, 3]} spacing="3">
+              {[1, 2, 3, 4].map((x) => (
+                <SkeletonExpense key={x} />
+              ))}
+            </SimpleGrid>
+          </Box>
+        ) : !data?.expenses.length ? (
+          <NoExpense />
+        ) : (
+          <Box py="5">
+            <ExpenseTotal total={data?.total_expense} month={selectedMon} />
+            <SimpleGrid columns={[1, 1, 2, 3]} spacing="3">
+              {data?.expenses.map((x) => (
+                <ExpenseCard key={x.id} data={x} />
+              ))}
+            </SimpleGrid>
+          </Box>
+        )}
       </Container>
+      <AddExpenseModal isOpen={isAddExpOpen} onClose={onAddExpClose} />
     </Box>
   );
 };
-const ExpenseMonth = () => {
+const ExpenseTotal = ({ total, month }) => {
   let formatter = Intl.NumberFormat("en");
   let wcolor = useColorModeValue("gray.500", "gray.400");
   return (
-    <Box maxW="400px" mb="3">
-      <Flex justify="space-between" align="center" px="2">
+    <Box maxW="400px" mb="4">
+      <Flex justify="space-between" align="center" px="1">
         <Flex align="center" gridColumnGap="5px">
-          <Box color={wcolor} mb="2px">
+          <Box color={wcolor}>
             <GrStackOverflow />
           </Box>
           <Text color={wcolor} fontSize="sm" fontWeight="bold">
-            Total
+            {moment(month, "MMM-YYYY").format("MMM")} Expense
           </Text>
         </Flex>
         <Text whiteSpace="nowrap" fontWeight="bold" color={wcolor}>
-          Rs {formatter.format(500000)}
+          {total ? `Rs ${formatter.format(total)}` : "Unknown"}
         </Text>
-      </Flex>
-    </Box>
-  );
-};
-
-const ExpenseCard = ({ data }) => {
-  const { isOpen, onToggle } = useDisclosure();
-  let formatter = Intl.NumberFormat("en", { notation: "compact" });
-  return (
-    <Box
-      bg={useColorModeValue("white", "dark.200")}
-      borderRadius="lg"
-      boxShadow="md"
-      maxW="400px"
-    >
-      <Flex gridColumnGap="4" h="full">
-        <Box py="3">
-          <Flex
-            direction="column"
-            align="center"
-            justify="center"
-            px="4"
-            borderRightWidth="1px"
-            borderColor={useColorModeValue("gray.200", "gray.600")}
-            h="full"
-          >
-            <Text fontSize="xs" textTransform="uppercase" color="blue.500">
-              Oct
-            </Text>
-            <Text fontSize="sm" color="blue.500">
-              03
-            </Text>
-          </Flex>
-        </Box>
-        <Flex
-          justify="space-between"
-          align="center"
-          pr="4"
-          w="full"
-          h="full"
-          gridColumnGap="4"
-        >
-          <Flex
-            h="100%"
-            w="100%"
-            onClick={onToggle}
-            cursor="pointer"
-            align="center"
-            py="4"
-          >
-            <Text
-              color={useColorModeValue("gray.600", "gray.300")}
-              fontSize="sm"
-              noOfLines={isOpen ? 0 : 1}
-              textTransform="capitalize"
-            >
-              {data?.title ? data?.title : "No title"}
-            </Text>
-          </Flex>
-          {isOpen ? (
-            <Flex align="center" h="full" color="red.500">
-              <AiFillDelete />
-            </Flex>
-          ) : (
-            <Text color="red.400" whiteSpace="nowrap" fontWeight="bold">
-              Rs {formatter.format(data.amount)}
-            </Text>
-          )}
-        </Flex>
       </Flex>
     </Box>
   );

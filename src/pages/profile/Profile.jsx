@@ -18,8 +18,12 @@ import useBoundStore from "@src/store/Store";
 import { useMutation } from "@tanstack/react-query";
 import { changeUserPass, updateUserName } from "../../services/Apis";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const Profile = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const {
     isOpen: nameIsOpen,
     onOpen: nameOnOpen,
@@ -230,6 +234,7 @@ const Profile = () => {
                       color={tcolor}
                       bg={tbg}
                       name="oldPass"
+                      type="password"
                       minLength={6}
                       maxLength={10}
                       placeholder="Old password"
@@ -241,6 +246,7 @@ const Profile = () => {
                       color={tcolor}
                       bg={tbg}
                       name="newPass"
+                      type="password"
                       minLength={6}
                       maxLength={10}
                       placeholder="New password"
@@ -256,6 +262,7 @@ const Profile = () => {
                       minLength={6}
                       maxLength={10}
                       placeholder="Retype password"
+                      type="password"
                       isRequired
                     />
                   </Box>
