@@ -4,14 +4,18 @@ import {
   Text,
   Container,
   useColorModeValue,
+  useColorMode,
 } from "@chakra-ui/react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 import { IoSettingsSharp } from "react-icons/io5";
 
+import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
+
 export default function MobileNav({ display }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const pathList = [
     "login",
@@ -28,6 +32,7 @@ export default function MobileNav({ display }) {
     const sp = pathname.split("/");
     return pathList.includes(sp[1]) ? sp[1] : "Not Found";
   };
+  console.log("displpay", display);
 
   return (
     <>
@@ -50,19 +55,23 @@ export default function MobileNav({ display }) {
             </Flex>
             <Flex alignItems="center" gridColumnGap="4">
               {display ? <Navs /> : null}
-              <NavLink to="settings" end>
-                {({ isActive }) => (
-                  <Box
-                    color={
-                      isActive
-                        ? "blue.400"
-                        : useColorModeValue("gray.600", "gray.500")
-                    }
-                  >
-                    <IoSettingsSharp />
-                  </Box>
-                )}
-              </NavLink>
+              {colorMode === "light" ? (
+                <Box
+                  onClick={toggleColorMode}
+                  cursor="pointer"
+                  color="gray.600"
+                >
+                  <BsFillMoonFill size="16px" />
+                </Box>
+              ) : (
+                <Box
+                  onClick={toggleColorMode}
+                  cursor="pointer"
+                  color="gray.500"
+                >
+                  <BsFillSunFill size="16px" />
+                </Box>
+              )}
             </Flex>
           </Flex>
         </Container>
@@ -94,7 +103,7 @@ const Navs = () => {
     },
   ];
   return (
-    <Flex gridColumnGap="4">
+    <Flex gridColumnGap="4" align="center">
       {navPaths.map((n) => (
         <NavLink to={n.path} end key={n.id}>
           {({ isActive }) => (
@@ -118,6 +127,17 @@ const Navs = () => {
           )}
         </NavLink>
       ))}
+      <NavLink to="settings" end>
+        {({ isActive }) => (
+          <Box
+            color={
+              isActive ? "blue.400" : useColorModeValue("gray.600", "gray.500")
+            }
+          >
+            <IoSettingsSharp />
+          </Box>
+        )}
+      </NavLink>
     </Flex>
   );
 };
