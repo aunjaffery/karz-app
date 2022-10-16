@@ -29,7 +29,6 @@ const WeekGraph = () => {
   if (!chartData?.result) {
     return <NoGraphData />;
   }
-	console.log(chartData?.result?.labels)
   return (
     <Box px="4">
       <Box w="100%" maxW="800px" mx="auto" h="100%" minH="300px">

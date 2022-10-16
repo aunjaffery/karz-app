@@ -74,6 +74,7 @@ const AddTransModal = ({ isOpen, onClose }) => {
         data[key] = e.target[key].value;
       }
     }
+    data.transaction_date = moment(data.transaction_date).toDate();
     addTransaction(data);
   };
 

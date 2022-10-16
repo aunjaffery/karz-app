@@ -11,7 +11,6 @@ import { Bar } from "react-chartjs-2";
 import { useColorMode } from "@chakra-ui/react";
 
 function BarChart({ labels, values }) {
-	console.log(labels)
   const { colorMode } = useColorMode();
   let g400 = "#A0AEC0";
   let g600 = "#4A5568";

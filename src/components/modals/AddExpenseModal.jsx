@@ -39,7 +39,6 @@ const AddExpenseModal = ({ isOpen, onClose }) => {
     let input_date = e.target.expense_date?.value;
     let expense_date = moment(input_date).toDate();
     if (!title || !amount || !expense_date) return;
-    console.log({ title, amount, expense_date });
     mutate({ title, amount, expense_date });
   };
   const tborder = useColorModeValue("1px", "none");

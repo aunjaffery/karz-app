@@ -19,8 +19,6 @@ const ExpenseDetailModal = ({ isOpen, onClose, data, onExpDeleteModal }) => {
     { base: "bottom", md: "right" },
     { fallback: "bottom" }
   );
-
-  console.log("<== ", data.id, data.expense_date);
   return (
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">
       <DrawerOverlay />
