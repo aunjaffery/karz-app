@@ -12,7 +12,7 @@ const WeekGraph = () => {
     data: chartData,
     isLoading: chartLoading,
     isError,
-  } = useQuery(["getWeeklyExp"], getWeeklyExp, {
+  } = useQuery(["getWeeklyExp", moment().utcOffset()], getWeeklyExp, {
     refetchOnWindowFocus: false,
     onError: () => toast.error("Error! Cannot fetch chart data"),
   });

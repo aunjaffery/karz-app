@@ -32,7 +32,6 @@ export default function MobileNav({ display }) {
     const sp = pathname.split("/");
     return pathList.includes(sp[1]) ? sp[1] : "Not Found";
   };
-  console.log("displpay", display);
 
   return (
     <>

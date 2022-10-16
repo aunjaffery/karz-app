@@ -57,12 +57,18 @@ export const getChartData = async () => {
   const rsp = await axios(`${Domain}/api/user/pieTransaction`);
   return rsp.data;
 };
-export const getWeeklyExp = async () => {
-  const rsp = await axios(`${Domain}/api/user/weeklyExpense`);
+export const getWeeklyExp = async ({ queryKey }) => {
+  const [_, offset] = queryKey;
+  const rsp = await axios(`${Domain}/api/user/weeklyExpense`, {
+    params: { offset },
+  });
   return rsp.data;
 };
-export const getMonthlyExp = async () => {
-  const rsp = await axios(`${Domain}/api/user/monthlyExpense`);
+export const getMonthlyExp = async ({queryKey}) => {
+  const [_, offset] = queryKey;
+  const rsp = await axios(`${Domain}/api/user/monthlyExpense`, {
+    params: { offset },
+  });
   return rsp.data;
 };
 

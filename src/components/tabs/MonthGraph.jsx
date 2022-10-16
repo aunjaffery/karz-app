@@ -12,7 +12,7 @@ const MonthGraph = () => {
     data: chartData,
     isLoading: chartLoading,
     isError,
-  } = useQuery(["getMonthlyExp"], getMonthlyExp, {
+  } = useQuery(["getMonthlyExp", moment().utcOffset()], getMonthlyExp, {
     refetchOnWindowFocus: false,
     onError: () => toast.error("Error! Cannot fetch chart data"),
   });
