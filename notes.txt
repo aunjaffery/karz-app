@@ -12,6 +12,9 @@ status: 2, type: borrowed	--->		borrowed-partial
 * client detials (transactions)
 * infinite pagination in transactions **
 * transaction despriction
+* month query utc
+* mobile nav to web nav same
+* mobile toast
 
 --------------------------Done---------------------------
 ! breadcrub in navbar,
@@ -24,3 +27,4 @@ status: 2, type: borrowed	--->		borrowed-partial
 ! take care of year in expenses. back and front
 ! expenses (new feature)
 ! No expense found svg renew
+! route when validation fails

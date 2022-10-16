@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "@comp/misc/Layout";
 import LoginPage from "@pages/auth/LoginPage";
 import Dashboard from "@pages/dasboard/Dashboard";
@@ -37,6 +37,7 @@ function App() {
     <Box>
       <Layout>
         <Routes>
+          <Route path="/" element={<Navigate to="/expense" replace />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route
