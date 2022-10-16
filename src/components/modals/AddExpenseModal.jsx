@@ -36,7 +36,8 @@ const AddExpenseModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     let title = e.target.title?.value;
     let amount = e.target.amount?.value;
-    let expense_date = e.target.expense_date?.value;
+    let input_date = e.target.expense_date?.value;
+    let expense_date = moment(input_date).toDate();
     if (!title || !amount || !expense_date) return;
     console.log({ title, amount, expense_date });
     mutate({ title, amount, expense_date });
