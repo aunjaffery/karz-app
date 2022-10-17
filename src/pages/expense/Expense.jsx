@@ -29,7 +29,7 @@ const Expense = () => {
   const { setTransFetching } = useBoundStore((state) => state);
   const [selectedMon, setSelectedMon] = useState(moment().format("MMM-YYYY"));
   const { data, isLoading, isFetching, isError } = useQuery(
-    ["fetchUserExpenses", { date: selectedMon }],
+    ["fetchUserExpenses", { date: selectedMon, offset: moment().utcOffset() }],
     fetchUserExpenses,
     {
       refetchOnWindowFocus: false,
