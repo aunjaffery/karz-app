@@ -9,15 +9,17 @@ import ExpenseDetailModal from "@comp/modals/ExpenseDetailModal";
 import DeleteClientDialog from "@comp/modals/DeleteClientDialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteExpense } from "../../services/Apis";
+import { ExpIconFun } from "@src/icons/ExpIconDynamic";
 import moment from "moment";
 import { toast } from "react-toastify";
 
 const ExpenseCard = ({ data }) => {
   const queryClient = useQueryClient();
   let formatter = Intl.NumberFormat("en", { notation: "compact" });
-  let cardBg = useColorModeValue("white", "dark.200");
-  let cardBr = useColorModeValue("gray.200", "gray.600");
+  let cardBr = useColorModeValue("#e5e5e5", "#282f3c");
   let cardColor = useColorModeValue("gray.600", "gray.300");
+  let iconBg = useColorModeValue("purple.400", "dark.200");
+  let iconColor = useColorModeValue("white", "purple.400");
 
   const {
     isOpen: isDetailOpen,
@@ -52,48 +54,57 @@ const ExpenseCard = ({ data }) => {
     expDelMutate(data?.id);
   };
   return (
-    <Box bg={cardBg} borderRadius="lg" boxShadow="md" maxW="400px">
-      <Flex gridColumnGap="4" onClick={onDetailOpen} cursor="pointer">
-        <Box py="3">
-          <Flex
-            direction="column"
-            align="center"
-            justify="center"
-            px="4"
-            borderRightWidth="1px"
-            borderColor={cardBr}
-          >
-            <Text fontSize="xs" textTransform="uppercase" color="blue.500">
-              {data?.expense_date
-                ? moment(data?.expense_date).format("MMM")
-                : "unk"}
-            </Text>
-            <Text fontSize="sm" color="blue.500">
-              {data?.expense_date
-                ? moment(data?.expense_date).format("DD")
-                : "00"}
-            </Text>
-          </Flex>
+    <Box bg="none" maxW="400px">
+      <Flex gridColumnGap="3" onClick={onDetailOpen} cursor="pointer">
+        <Box p="2" bg={iconBg} borderRadius="xl" color={iconColor}>
+          {<ExpIconFun title={data?.title} />}
         </Box>
-        <Flex
-          justify="space-between"
-          align="center"
-          pr="4"
-          w="full"
-          gridColumnGap="4"
-        >
-          <Text
-            color={cardColor}
-            fontSize="sm"
-            noOfLines={1}
-            textTransform="capitalize"
+        <Box w="full" h="full">
+          <Flex
+            justify="space-between"
+            align="center"
+            w="full"
+            gridColumnGap="4"
+            pr="1"
           >
-            {data?.title ? data?.title : "No title"}
-          </Text>
-          <Text color="red.400" whiteSpace="nowrap" fontWeight="bold">
-            Rs {formatter.format(data.amount)}
-          </Text>
-        </Flex>
+            <Flex direction="column" justify="center" flex="8" h="full">
+              <Text
+                color={cardColor}
+                noOfLines={1}
+                textTransform="capitalize"
+                fontWeight="bold"
+                fontSize="sm"
+              >
+                {data?.title ? data?.title : "Anonymous"}
+              </Text>
+              <Text color="gray.500" fontSize="sm" noOfLines={1}>
+                {data?.description ? data?.description : "_"}
+              </Text>
+            </Flex>
+            <Flex
+              direction="column"
+              justify="center"
+              align="flex-end"
+              h="full"
+              flex="2"
+            >
+              <Text color="red.400" whiteSpace="nowrap" fontWeight="bold">
+                {formatter.format(data.amount)}
+              </Text>
+              <Text
+                fontSize="xs"
+                textTransform="uppercase"
+                color="gray.500"
+                whiteSpace="nowrap"
+              >
+                {data?.expense_date
+                  ? moment(data?.expense_date).format("DD MMM")
+                  : "unk"}
+              </Text>
+            </Flex>
+          </Flex>
+          <Box bg={cardBr} mt="1" h="1px" />
+        </Box>
       </Flex>
       <ExpenseDetailModal
         isOpen={isDetailOpen}
