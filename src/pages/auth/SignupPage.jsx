@@ -1,11 +1,22 @@
 import { useEffect } from "react";
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
 import useBoundStore from "@src/store/Store";
 import Rocket from "@src/icons/Rocket";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const { onToggle, isOpen } = useDisclosure();
   const { signUpService, authLoading, user } = useBoundStore((state) => state);
   useEffect(() => {
     if (!!user) {
@@ -99,47 +110,69 @@ const SignupPage = () => {
               </Box>
               <Box mt="5">
                 <Text color="gray.500">Password</Text>
-                <Input
-                  type="password"
-                  name="password"
-                  minW={{ base: "200px", md: "400px" }}
-                  bg="gray.200"
-                  size={{ base: "md", md: "lg" }}
-                  mt="2"
-                  minLength={6}
-                  maxLength={10}
-                  color="gray.600"
-                  _focus={{
-                    boxShadow: "none !important",
-                    borderColor: "gray.400",
-                  }}
-                  _hover={{
-                    borderColor: "gray.400",
-                  }}
-                  isRequired={true}
-                />
+                <InputGroup size="md" mt="2">
+                  <Input
+                    type={isOpen ? "text" : "password"}
+                    style={{ paddingLeft: "1rem", paddingRight: "50px" }}
+                    name="password"
+                    minW={{ base: "200px", md: "400px" }}
+                    bg="gray.200"
+                    size={{ base: "md", md: "lg" }}
+                    minLength={6}
+                    maxLength={10}
+                    color="gray.600"
+                    _focus={{
+                      boxShadow: "none !important",
+                      borderColor: "gray.400",
+                    }}
+                    _hover={{
+                      borderColor: "gray.400",
+                    }}
+                    isRequired={true}
+                  />
+                  <InputRightElement width="50px" color="gray.500" h="100%">
+                    <Box onClick={onToggle} cursor="pointer">
+                      {isOpen ? (
+                        <AiOutlineEyeInvisible size="20" />
+                      ) : (
+                        <AiOutlineEye size="20" />
+                      )}
+                    </Box>
+                  </InputRightElement>
+                </InputGroup>
               </Box>
               <Box mt="5">
                 <Text color="gray.500">Retype Password</Text>
-                <Input
-                  type="password"
-                  name="password2"
-                  minW={{ base: "200px", md: "400px" }}
-                  bg="gray.200"
-                  size={{ base: "md", md: "lg" }}
-                  mt="2"
-                  minLength={6}
-                  maxLength={15}
-                  color="gray.600"
-                  _focus={{
-                    boxShadow: "none !important",
-                    borderColor: "gray.400",
-                  }}
-                  _hover={{
-                    borderColor: "gray.400",
-                  }}
-                  isRequired={true}
-                />
+                <InputGroup size="md" mt="2">
+                  <Input
+                    type={isOpen ? "text" : "password"}
+                    style={{ paddingLeft: "1rem", paddingRight: "50px" }}
+                    name="password2"
+                    minW={{ base: "200px", md: "400px" }}
+                    bg="gray.200"
+                    size={{ base: "md", md: "lg" }}
+                    minLength={6}
+                    maxLength={15}
+                    color="gray.600"
+                    _focus={{
+                      boxShadow: "none !important",
+                      borderColor: "gray.400",
+                    }}
+                    _hover={{
+                      borderColor: "gray.400",
+                    }}
+                    isRequired={true}
+                  />
+                  <InputRightElement width="50px" color="gray.500" h="100%">
+                    <Box onClick={onToggle} cursor="pointer">
+                      {isOpen ? (
+                        <AiOutlineEyeInvisible size="20" />
+                      ) : (
+                        <AiOutlineEye size="20" />
+                      )}
+                    </Box>
+                  </InputRightElement>
+                </InputGroup>
               </Box>
               <Box mt="10">
                 <Button

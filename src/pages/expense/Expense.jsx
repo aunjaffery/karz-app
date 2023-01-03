@@ -124,7 +124,7 @@ const Expense = () => {
         ) : (
           <Box py="5">
             <ExpenseTotal total={data?.total_expense} month={selectedMon} />
-            <SimpleGrid columns={[1, 1, 2, 3]} spacing="3">
+            <SimpleGrid columns={[1, 1, 2, 3]} spacing="4">
               {data?.expenses.map((x) => (
                 <ExpenseCard key={x.id} data={x} />
               ))}

@@ -15,6 +15,8 @@ import moment from "moment";
 
 const ExpenseDetailModal = ({ isOpen, onClose, data, onExpDeleteModal }) => {
   let formatter = Intl.NumberFormat("en");
+  let cardColor = useColorModeValue("gray.600", "gray.300");
+  let cardBg = useColorModeValue("white", "dark.200");
   const variant = useBreakpointValue(
     { base: "bottom", md: "right" },
     { fallback: "bottom" }
@@ -22,10 +24,7 @@ const ExpenseDetailModal = ({ isOpen, onClose, data, onExpDeleteModal }) => {
   return (
     <Drawer placement={variant} onClose={onClose} isOpen={isOpen} size="sm">
       <DrawerOverlay />
-      <DrawerContent
-        borderTopRadius={{ base: "30px", md: "none" }}
-        bg={useColorModeValue("white", "dark.200")}
-      >
+      <DrawerContent borderTopRadius={{ base: "30px", md: "none" }} bg={cardBg}>
         <DrawerBody align="center">
           <Box py="6">
             <Flex direction="column" align="center" justify="center">
@@ -58,15 +57,17 @@ const ExpenseDetailModal = ({ isOpen, onClose, data, onExpDeleteModal }) => {
                   </Text>
                 </Box>
               </Box>
-              <Box mt="4" textAlign="center">
-                <Text fontSize="xl">Description</Text>
+              <Box mt="16px" textAlign="center">
                 <Text
                   fontSize="md"
                   textTransform="capitalize"
-                  color="gray.500"
+                  color={cardColor}
                   px="8"
                 >
-                  {data?.title}
+                  {data?.title ? data?.title : "Anonymous"}
+                </Text>
+                <Text fontSize="sm" color="gray.500" px="8" mt="1">
+                  {data?.description ? data?.description : "_"}
                 </Text>
               </Box>
             </Flex>
